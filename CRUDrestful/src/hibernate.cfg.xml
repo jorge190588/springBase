@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.enable_lazy_load_no_trans">true</property>
+        
+        <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+        <property name="hibernate.connection.password">ComputerDB190%</property>
+        <property name="hibernate.connection.url">jdbc:sqlserver://192.168.99.100;databaseName=RandomStudent</property>
+        <property name="hibernate.connection.username">sa</property>
+        <property name="hibernate.default_catalog">RandomStudent</property>
+        <property name="hibernate.default_schema">dbo</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+        <property name="current_session_context_class">thread</property>
+        
+        <mapping resource="entities.Quiz"/>
+        <mapping resource="entities.QuizDetail"/>
+        <mapping resource="entities.Student"/>
+        <mapping resource="entities.Teacheer"/>
+        
+    </session-factory>
+</hibernate-configuration>
