@@ -163,3 +163,19 @@ current_session_context_class
 ### How to generate Hibernate mapping files & annotation with Hibernate Tools
 
 https://www.mkyong.com/hibernate/how-to-generate-code-with-hibernate-tools/
+
+
+### How to add user permissions to tomcat 7
+An example of tomcat-users.xml file with the permissions added
+
+```
+<role rolename="admin-gui"/>
+  <role rolename="manager-gui"/>
+  <role rolename="manager-status"/>
+  <role rolename="manager-script"/>
+  <role rolename="manager-jmx"/>
+  <user username="tomcat" password="tomcat" roles="admin-gui,manager-gui,manager-status,manager-script,manager-jmx"/>
+```  
+Reference:[tomcat-default-administrator-password](https://www.mkyong.com/tomcat/tomcat-default-administrator-password/)
+
+
