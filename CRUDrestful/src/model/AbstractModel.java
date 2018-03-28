@@ -21,10 +21,7 @@ public abstract class AbstractModel<T> {
 	    	Transaction transaction=null; 
 	    	try{
 	    		transaction = session.beginTransaction();
-	    		//+ entityClass.getName()
-	    		Query<T> query =session.createQuery("FROM "+entityClass.getName() );
-		        result = query.getResultList();
-		        System.out.println("================FROM " + entityClass.getName() + "======================= "+result.size());
+		        result = session.createQuery("FROM "+entityClass.getName()).getResultList();
 		        transaction.commit();
 	    	}catch(Exception ex){
 	    		System.err.println("Initial SessionFactory creation failed." + ex);
