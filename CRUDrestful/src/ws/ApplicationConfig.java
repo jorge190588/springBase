@@ -7,13 +7,15 @@ import java.util.Set;
 public class ApplicationConfig extends Application {
 
 	public Set<Class<?>> getClasses(){
+		System.out.println("Run set in applicationConfig");
 		Set<Class<?>> resources = new java.util.HashSet<>();
 		addRestResourceClasses(resources);
 		return resources;
+		 
 	}
 	
 	private void addRestResourceClasses(Set<Class<?>> resources){
-		
+		resources.add(ws.DemoRest.class);
 	}
 	
 }

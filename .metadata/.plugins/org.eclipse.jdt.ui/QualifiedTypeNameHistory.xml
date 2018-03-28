@@ -2,7 +2,6 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="org.hibernate.SessionFactory"/>
 <fullyQualifiedTypeName name="javax.imageio.spi.ServiceRegistry"/>
-<fullyQualifiedTypeName name="org.hibernate.testing.ServiceRegistryBuilder"/>
 <fullyQualifiedTypeName name="com.sun.glass.ui.Application"/>
 <fullyQualifiedTypeName name="javafx.application.Application"/>
 <fullyQualifiedTypeName name="javax.ws.rs.Path"/>
@@ -10,7 +9,18 @@
 <fullyQualifiedTypeName name="model.AbstractModel"/>
 <fullyQualifiedTypeName name="javax.ws.rs.GET"/>
 <fullyQualifiedTypeName name="javax.ws.rs.Produces"/>
-<fullyQualifiedTypeName name="javax.ws.rs.core.MediaType"/>
 <fullyQualifiedTypeName name="entities.Teacher"/>
 <fullyQualifiedTypeName name="model.QuizModel"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="antlr.collections.List"/>
+<fullyQualifiedTypeName name="org.hibernate.testing.ServiceRegistryBuilder"/>
+<fullyQualifiedTypeName name="org.hibernate.boot.registry.StandardServiceRegistry"/>
+<fullyQualifiedTypeName name="org.hibernate.boot.Metadata"/>
+<fullyQualifiedTypeName name="org.hibernate.boot.MetadataSources"/>
+<fullyQualifiedTypeName name="org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl"/>
+<fullyQualifiedTypeName name="entities.Student"/>
+<fullyQualifiedTypeName name="javax.ws.rs.core.MediaType"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="java.util.HashSet"/>
+<fullyQualifiedTypeName name="ws.StudentRest"/>
 </qualifiedTypeNameHistroy>
