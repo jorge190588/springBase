@@ -1,5 +1,5 @@
 package entities;
-// Generated Mar 23, 2018 1:47:43 PM by Hibernate Tools 5.1.0.Alpha1
+// Generated Mar 27, 2018 5:12:38 PM by Hibernate Tools 5.1.0.Alpha1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -20,7 +20,7 @@ public class Teacher implements java.io.Serializable {
 	private String name;
 	private String code;
 	private Date createdAt;
-	private Date updatedAd;
+	private Date updatedAt;
 
 	public Teacher() {
 	}
@@ -31,12 +31,12 @@ public class Teacher implements java.io.Serializable {
 		this.code = code;
 	}
 
-	public Teacher(int id, String name, String code, Date createdAt, Date updatedAd) {
+	public Teacher(int id, String name, String code, Date createdAt, Date updatedAt) {
 		this.id = id;
 		this.name = name;
 		this.code = code;
 		this.createdAt = createdAt;
-		this.updatedAd = updatedAd;
+		this.updatedAt = updatedAt;
 	}
 
 	@Id
@@ -79,13 +79,13 @@ public class Teacher implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "updated_ad", length = 23)
-	public Date getUpdatedAd() {
-		return this.updatedAd;
+	@Column(name = "updated_at", length = 23)
+	public Date getUpdatedAt() {
+		return this.updatedAt;
 	}
 
-	public void setUpdatedAd(Date updatedAd) {
-		this.updatedAd = updatedAd;
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 }

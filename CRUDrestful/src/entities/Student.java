@@ -1,5 +1,5 @@
 package entities;
-// Generated Mar 23, 2018 1:47:43 PM by Hibernate Tools 5.1.0.Alpha1
+// Generated Mar 27, 2018 5:12:38 PM by Hibernate Tools 5.1.0.Alpha1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -17,26 +17,29 @@ import javax.persistence.TemporalType;
 public class Student implements java.io.Serializable {
 
 	private int id;
-	private String name;
+	private String firstName;
+	private String lastName;
 	private String carne;
 	private Date createdAt;
-	private Date updatedAd;
+	private Date updatedAt;
 
 	public Student() {
 	}
 
-	public Student(int id, String name, String carne) {
+	public Student(int id, String firstName, String lastName, String carne) {
 		this.id = id;
-		this.name = name;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.carne = carne;
 	}
 
-	public Student(int id, String name, String carne, Date createdAt, Date updatedAd) {
+	public Student(int id, String firstName, String lastName, String carne, Date createdAt, Date updatedAt) {
 		this.id = id;
-		this.name = name;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.carne = carne;
 		this.createdAt = createdAt;
-		this.updatedAd = updatedAd;
+		this.updatedAt = updatedAt;
 	}
 
 	@Id
@@ -50,13 +53,22 @@ public class Student implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "name", nullable = false, length = 50)
-	public String getName() {
-		return this.name;
+	@Column(name = "firstName", nullable = false, length = 50)
+	public String getFirstName() {
+		return this.firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	@Column(name = "lastName", nullable = false, length = 50)
+	public String getLastName() {
+		return this.lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	@Column(name = "carne", nullable = false, length = 50)
@@ -79,13 +91,13 @@ public class Student implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "updated_ad", length = 23)
-	public Date getUpdatedAd() {
-		return this.updatedAd;
+	@Column(name = "updated_at", length = 23)
+	public Date getUpdatedAt() {
+		return this.updatedAt;
 	}
 
-	public void setUpdatedAd(Date updatedAd) {
-		this.updatedAd = updatedAd;
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 }

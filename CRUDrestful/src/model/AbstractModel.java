@@ -6,7 +6,7 @@ import org.hibernate.*;
 
 @SuppressWarnings("unchecked")
 public abstract class AbstractModel<T> {
-	  private Class<T> entityClass;
+	  	private Class<T> entityClass;
 
 	    public AbstractModel() {
 	    }
@@ -21,8 +21,10 @@ public abstract class AbstractModel<T> {
 	    	Transaction transaction=null; 
 	    	try{
 	    		transaction = session.beginTransaction();
-	    		System.out.println("================FROM " + entityClass.getName() + "=======================");
-		        result = session.createQuery("FROM " + entityClass.getName()).list();
+	    		//+ entityClass.getName()
+	    		Query<T> query =session.createQuery("FROM "+entityClass.getName() );
+		        result = query.getResultList();
+		        System.out.println("================FROM " + entityClass.getName() + "======================= "+result.size());
 		        transaction.commit();
 	    	}catch(Exception ex){
 	    		System.err.println("Initial SessionFactory creation failed." + ex);
@@ -77,8 +79,8 @@ public abstract class AbstractModel<T> {
 	        Session session = HibernateUtil.getSessionFactory().openSession();
 	        Transaction trans = session.beginTransaction();
 	        try {            
-	            trans.begin();
 	            session.save(entity);
+	            System.out.println("data saved on"+entity.getClass() );
 	            trans.commit();            
 	        } catch (Exception ex) {
 	            trans.rollback();            
