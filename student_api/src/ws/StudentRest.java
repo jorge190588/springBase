@@ -19,7 +19,6 @@ public class StudentRest {
 
 	private StudentModel studentModel = new StudentModel();
 	
-	
 	@GET
 	@Path("findall_json")
 	@Produces(MediaType.APPLICATION_JSON)

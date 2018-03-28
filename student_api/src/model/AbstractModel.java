@@ -37,15 +37,25 @@ public abstract class AbstractModel<T> {
 	    }
 
 	    public List<T> getAll(String condition) {
-	        Session session = HibernateUtil.getSessionFactory().openSession();
-	        Transaction trans = session.beginTransaction();
-	        trans.begin();
-	        Query query = session.createQuery("FROM " + entityClass.getName() + " WHERE " + condition);
-	        //System.out.println("======FROM " + entityClass.getName()+ " WHERE "+condition+"======");
-	        List<T> lst = query.list();
-	        trans.commit();
-	        session.close();
-	        return lst;
+	    	List<T> result =null;
+	    	Session session = HibernateUtil.getSessionFactory().openSession();
+	    	Transaction transaction = null;
+	    	try{
+	    		transaction =session.beginTransaction();
+	    		result= session.createQuery("FROM " + entityClass.getName() + " WHERE " + condition).getResultList();
+	    		transaction.commit();
+	    	}catch(Exception ex){
+	    		System.err.println("Initial SessionFactory creation failed." + ex);
+	    		result=null;
+	    		if (transaction !=null){
+	    			transaction.rollback();
+	    		}
+	    	}finally{
+	    		session.close();
+	    	}
+	        
+	        return result;	        
+	        
 	    }
 
 	    public List<T> createHQLQuery(String hqlQuery) {
