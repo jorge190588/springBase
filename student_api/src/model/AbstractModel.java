@@ -24,7 +24,6 @@ public abstract class AbstractModel<T> {
 		        result = session.createQuery("FROM "+entityClass.getName()).getResultList();
 		        transaction.commit();
 	    	}catch(Exception ex){
-	    		System.err.println("Initial SessionFactory creation failed." + ex);
 	    		result=null;
 	    		if (transaction !=null){
 	    			transaction.rollback();
@@ -45,7 +44,6 @@ public abstract class AbstractModel<T> {
 	    		result= session.createQuery("FROM " + entityClass.getName() + " WHERE " + condition).getResultList();
 	    		transaction.commit();
 	    	}catch(Exception ex){
-	    		System.err.println("Initial SessionFactory creation failed." + ex);
 	    		result=null;
 	    		if (transaction !=null){
 	    			transaction.rollback();
@@ -65,7 +63,6 @@ public abstract class AbstractModel<T> {
 	    		session.save(entity);
 	    		transaction.commit();
 	    	}catch(Exception ex){
-	    		System.err.println("Initial SessionFactory creation failed." + ex);
 	    		if (transaction !=null){
 	    			transaction.rollback();
 	    		}
