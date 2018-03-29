@@ -55,76 +55,76 @@ public abstract class AbstractModel<T> {
 	    	}
 	        
 	        return result;	        
-	        
 	    }
-
-	    public List<T> createHQLQuery(String hqlQuery) {
-	        Session session = HibernateUtil.getSessionFactory().openSession();
-	        Transaction trans = session.beginTransaction();
-	        trans.begin();
-	        Query query = session.createQuery(hqlQuery);
-	        //System.out.println("======FROM " + entityClass.getName()+ " WHERE "+condition+"======");
-	        List<T> lst = query.list();
-	        trans.commit();
-	        session.close();
-	        return lst;
+	    
+	    public void create(T entity) throws Exception{
+	    	Session session = HibernateUtil.getSessionFactory().openSession();
+	    	Transaction transaction = null;
+	    	try{
+	    		transaction =session.beginTransaction();
+	    		session.save(entity);
+	    		transaction.commit();
+	    	}catch(Exception ex){
+	    		System.err.println("Initial SessionFactory creation failed." + ex);
+	    		if (transaction !=null){
+	    			transaction.rollback();
+	    		}
+	    	}finally{
+	    		session.close();
+	    	}
 	    }
-
-	    public List<T> search(String condition) {
-	        Session session = HibernateUtil.getSessionFactory().openSession();
-	        Transaction trans = session.beginTransaction();
-	        trans.begin();
-	        Query query = session.createQuery("FROM " + entityClass.getName() + " WHERE " + condition);
-	        //System.out.println("======FROM " + entityClass.getName()+ " WHERE "+condition+"======");
-	        List<T> lst = query.list();
-	        trans.commit();
-	        session.close();
-	        return lst;
-	    }
-
-	    public void add(T entity) throws Exception{
-	        Session session = HibernateUtil.getSessionFactory().openSession();
-	        Transaction trans = session.beginTransaction();
-	        try {            
-	            session.save(entity);
-	            System.out.println("data saved on"+entity.getClass() );
-	            trans.commit();            
-	        } catch (Exception ex) {
-	            trans.rollback();            
-	            ex.printStackTrace();            
-	            throw new Exception(ex.getMessage());
-	        }        
-	        session.close();
-	    }
-
+	    
 	    public void update(T entity) throws Exception{
-	        Session session = HibernateUtil.getSessionFactory().openSession();
-	        Transaction trans = session.beginTransaction();        
-	        try {
-	            trans.begin();
+	    	Session session = HibernateUtil.getSessionFactory().openSession();
+	    	Transaction transaction = null;
+	    	try{
+	    		transaction =session.beginTransaction();
 	            session.update(entity);
-	            trans.commit();
-	        } catch (Exception ex) {
-	            trans.rollback();
-	            ex.printStackTrace();  
-	            throw new Exception(ex.getMessage());
-	        }        
-	        session.close();
+	    		transaction.commit();
+	    	}catch(Exception ex){
+	    		if (transaction !=null){
+	    			transaction.rollback();
+	    		}
+	    		ex.printStackTrace();  
+	    	}finally{
+	    		session.close();
+	    	}
+	    }
+	      
+	    public void delete(T entity) throws Exception{
+	    	Session session = HibernateUtil.getSessionFactory().openSession();
+	    	Transaction transaction = null;
+	    	try{
+	    		transaction =session.beginTransaction();
+	    	       session.delete(entity);
+	    		transaction.commit();
+	    	}catch(Exception ex){
+	    		if (transaction !=null){
+	    			transaction.rollback();
+	    		}
+	    		ex.printStackTrace();  
+	    	}finally{
+	    		session.close();
+	    	}
 	    }
 
-	    public void delete(T entity) throws Exception {
-	        Session session = HibernateUtil.getSessionFactory().openSession();
-	        Transaction trans = session.beginTransaction();        
-	        try {
-	            trans.begin();
-	            session.delete(entity);
-	            trans.commit();
-	        } catch (Exception ex) {
-	            trans.rollback();
-	            ex.printStackTrace();  
-	            throw new Exception(ex.getMessage());
-	        }        
-	        session.close();
-	    }
-	
+	    public List<T> query(String query) {
+	    	List<T> result =null;
+	    	Session session = HibernateUtil.getSessionFactory().openSession();
+	    	Transaction transaction=null; 
+	    	try{
+	    		transaction = session.beginTransaction();
+		        result = session.createQuery(query).getResultList();
+		        transaction.commit();
+	    	}catch(Exception ex){
+	    		result=null;
+	    		if (transaction !=null){
+	    			transaction.rollback();
+	    		}
+	    	}finally{
+	    		session.close();
+	    	}
+	        
+	        return result;
+	    }	    	
 }
