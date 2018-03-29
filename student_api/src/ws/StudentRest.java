@@ -9,6 +9,8 @@ import javax.ws.rs.core.MediaType;
 
 import entities.*;
 import model.*;
+import tools.CustomException;
+import tools.Error;
 import tools.RestResponse;
 
 /**
@@ -23,7 +25,7 @@ public class StudentRest {
 	@GET
 	@Path("findall_json")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Student> findAll(){
+	public List<Student> findAll() throws CustomException{
 		return studentModel.getAll();
 	}
 	
@@ -37,8 +39,9 @@ public class StudentRest {
 		try{
 			List<Student> list =studentModel.getAll();
 			_response.set_data("Hi");	
-		}catch(Throwable ex){
-			_response.set_error(ex.getStackTrace().toString());
+		}catch(CustomException ex){
+			Error _error=new Error(ex.getMessage().toString(),ex.get_code());
+			_response.set_error(_error);
 		}
 		
 		return _response;

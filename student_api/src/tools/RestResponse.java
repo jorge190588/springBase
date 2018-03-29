@@ -9,22 +9,22 @@ package tools;
  */
 public class RestResponse<T> {
 	private T _data;
-	private String _error;
-
+	private T _error;
+	
 	public T get_data() {
 		return _data;
 	}
 
-	public void set_data(T _data) {
-		this._data = _data;
+	public void set_data(T data) {
+		this._data = data;
 	}
-
-	public String get_error() {
+	
+	public T get_error() {
 		return _error;
 	}
 
-	public void set_error(String _error) {
-		this._error = _error;
+	public void set_error(T error) {
+		this._error= error;
 	}
 
 

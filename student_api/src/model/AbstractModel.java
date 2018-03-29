@@ -3,6 +3,8 @@ package model;
 import java.util.*;	
 import org.hibernate.*;
 
+import tools.CustomException;
+
 
 @SuppressWarnings("unchecked")
 public abstract class AbstractModel<T> {
@@ -15,21 +17,22 @@ public abstract class AbstractModel<T> {
 	        this.entityClass = entityClass;
 	    }
 
-	    public List<T> getAll() {
+	    public List<T> getAll() throws CustomException{
 	    	List<T> result =null;
-	    	Session session = HibernateUtil.getSessionFactory().openSession();
+	    	Session session = null;
 	    	Transaction transaction=null; 
 	    	try{
+	    		session=HibernateUtil.getSessionFactory().openSession();
 	    		transaction = session.beginTransaction();
 		        result = session.createQuery("FROM "+entityClass.getName()).getResultList();
 		        transaction.commit();
-	    	}catch(Exception ex){
+	    	}catch(CustomException ex){
 	    		result=null;
-	    		if (transaction !=null){
-	    			transaction.rollback();
-	    		}
+	    		throw new CustomException(ex.getMessage(),ex.get_code());
 	    	}finally{
-	    		session.close();
+	    		if (session !=null){
+	    			session.close();	
+	    		}
 	    	}
 	        
 	        return result;
@@ -37,9 +40,10 @@ public abstract class AbstractModel<T> {
 
 	    public List<T> getAll(String condition) {
 	    	List<T> result =null;
-	    	Session session = HibernateUtil.getSessionFactory().openSession();
+	    	Session session = null;
 	    	Transaction transaction = null;
 	    	try{
+	    		session=HibernateUtil.getSessionFactory().openSession();
 	    		transaction =session.beginTransaction();
 	    		result= session.createQuery("FROM " + entityClass.getName() + " WHERE " + condition).getResultList();
 	    		transaction.commit();
@@ -107,9 +111,10 @@ public abstract class AbstractModel<T> {
 
 	    public List<T> query(String query) {
 	    	List<T> result =null;
-	    	Session session = HibernateUtil.getSessionFactory().openSession();
+	    	Session session =null;
 	    	Transaction transaction=null; 
 	    	try{
+	    		session = HibernateUtil.getSessionFactory().openSession();
 	    		transaction = session.beginTransaction();
 		        result = session.createQuery(query).getResultList();
 		        transaction.commit();

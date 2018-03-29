@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 import entities.*;
 import java.util.*;
 import model.*;
+import tools.CustomException;
 
 /**
  * @author jorge
@@ -23,7 +24,12 @@ public class QuizRest {
 	@GET
 	@Path("/findall_json")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Quiz> findAll(){
-		return quizModel.getAll();
+	public List<Quiz> findAll() throws CustomException{
+		try{
+			return quizModel.getAll();	
+		}catch(CustomException ex){
+			return null;
+		}
+		
 	}
 }

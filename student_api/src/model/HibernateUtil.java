@@ -1,6 +1,8 @@
 package model;
 
 import java.util.Properties;
+
+import org.apache.log4j.spi.ErrorCode;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
@@ -10,6 +12,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import entities.*;
+import tools.CustomException;
 
 public class HibernateUtil {
 
@@ -22,8 +25,8 @@ public class HibernateUtil {
     //Property based configuration
     private static SessionFactory sessionJavaConfigFactory;
 
-    private static SessionFactory buildSessionFactory() {
-        try {
+    private static SessionFactory buildSessionFactory() throws CustomException{
+        try{
             // Create the SessionFactory from hibernate.cfg.xml
             /*Configuration configuration = new Configuration();
             configuration.configure("hibernate.cfg.xml");
@@ -46,14 +49,11 @@ public class HibernateUtil {
     		 .build();
     		 
     		 SessionFactory sessionFactory = metadata.getSessionFactoryBuilder().build();
-    		 return sessionFactory;
-    	
+    		 return sessionFactory;        	
+        }catch(Throwable ex){
+        	throw new CustomException(ex.getMessage(),ex,100);
         }
-        catch (Throwable ex) {
-            // Make sure you log the exception, as it might be swallowed
-            System.err.println("Initial SessionFactory creation failed." + ex);
-            throw new ExceptionInInitializerError(ex);
-        }
+
     }
 
     private static SessionFactory buildSessionAnnotationFactory() {
@@ -112,8 +112,16 @@ public class HibernateUtil {
         }
     }
 
-    public static SessionFactory getSessionFactory() {
-        if(sessionFactory == null) sessionFactory = buildSessionFactory();
+    public static SessionFactory getSessionFactory() throws CustomException {
+        if(sessionFactory == null)
+			try {
+				sessionFactory = buildSessionFactory();
+				if (sessionFactory==null){
+					throw new CustomException("Error to create session factory",100);	
+				}
+			} catch (CustomException ex) {
+				throw new CustomException(ex.getMessage(),ex,100);
+			}
         return sessionFactory;
     }
 
