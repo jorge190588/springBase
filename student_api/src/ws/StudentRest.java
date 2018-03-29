@@ -35,10 +35,10 @@ public class StudentRest {
 		
 		RestResponse _response = new RestResponse();
 		try{
-			//List<Student> list =studentModel.getAll();
+			List<Student> list =studentModel.getAll();
 			_response.set_data("Hi");	
 		}catch(Throwable ex){
-			_response.set_error(ex);
+			_response.set_error(ex.getStackTrace().toString());
 		}
 		
 		return _response;

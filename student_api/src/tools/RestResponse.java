@@ -9,7 +9,7 @@ package tools;
  */
 public class RestResponse<T> {
 	private T _data;
-	private Throwable _error;
+	private String _error;
 
 	public T get_data() {
 		return _data;
@@ -19,15 +19,15 @@ public class RestResponse<T> {
 		this._data = _data;
 	}
 
-	public Throwable get_error() {
+	public String get_error() {
 		return _error;
 	}
 
-
-	public void set_error(Throwable _error) {
+	public void set_error(String _error) {
 		this._error = _error;
-		
 	}
+
+
 	
 	
 }
