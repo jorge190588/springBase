@@ -26,9 +26,9 @@ public abstract class AbstractModel<T> {
 	    		transaction = session.beginTransaction();
 		        result = session.createQuery("FROM "+entityClass.getName()).getResultList();
 		        transaction.commit();
-	    	}catch(CustomException ex){
+	    	}catch(CustomException exception){
 	    		result=null;
-	    		throw new CustomException(ex.getMessage(),ex.get_code());
+	    		throw new CustomException(exception);
 	    	}finally{
 	    		if (session !=null){
 	    			session.close();	
