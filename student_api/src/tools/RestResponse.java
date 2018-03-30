@@ -23,6 +23,7 @@ public class RestResponse<T> {
 		return _error;
 	}
 
+	
 	public void set_error(T error) {
 		this._error= error;
 	}

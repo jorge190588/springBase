@@ -7,14 +7,16 @@ package tools;
  * @author jorge
  *
  */
-public class Error {
+public class ErrorResponse {
 	private String _message;
 	private int _code;
 	
-	public Error(String message,int code){
+	public ErrorResponse(String message,int code){
 		this._message=message;
 		this._code=code;
 	}
+	
+	public ErrorResponse(){}
 	
 	public String get_message() {
 		return _message;

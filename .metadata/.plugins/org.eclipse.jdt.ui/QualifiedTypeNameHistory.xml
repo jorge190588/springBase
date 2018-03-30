@@ -23,4 +23,7 @@
 <fullyQualifiedTypeName name="java.util.Arrays"/>
 <fullyQualifiedTypeName name="java.util.HashSet"/>
 <fullyQualifiedTypeName name="ws.StudentRest"/>
+<fullyQualifiedTypeName name="tools.RestResponse"/>
+<fullyQualifiedTypeName name="org.apache.log4j.spi.ErrorCode"/>
+<fullyQualifiedTypeName name="tools.CustomException"/>
 </qualifiedTypeNameHistroy>

@@ -10,7 +10,8 @@ import javax.ws.rs.core.MediaType;
 import entities.*;
 import model.*;
 import tools.CustomException;
-import tools.Error;
+import tools.ErrorFormat;
+import tools.ErrorResponse;
 import tools.RestResponse;
 
 /**
@@ -18,7 +19,7 @@ import tools.RestResponse;
  *
  */
 @Path("student")
-public class StudentRest {
+public class StudentRest  {
 
 	private StudentModel studentModel = new StudentModel();
 	
@@ -39,9 +40,9 @@ public class StudentRest {
 		try{
 			List<Student> list =studentModel.getAll();
 			_response.set_data("Hi");	
-		}catch(CustomException ex){
-			Error _error=new Error(ex.getMessage().toString(),ex.get_code());
-			_response.set_error(_error);
+		}catch(CustomException exception){
+			ErrorFormat _errorFormat = new ErrorFormat(exception);
+			_response.set_error(_errorFormat.get_errorResponse());
 		}
 		
 		return _response;

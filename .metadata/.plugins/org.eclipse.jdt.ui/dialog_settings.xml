@@ -46,6 +46,8 @@
 		<item value="2" key="pageIndex"/>
 	</section>
 	<section name="quick_assist_proposal_size">
+		<item value="252" key="size.y"/>
+		<item value="663" key="size.x"/>
 	</section>
 	<section name="JavaSearchPage">
 		<item value="0" key="HISTORY_SIZE"/>
