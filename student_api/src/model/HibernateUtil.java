@@ -50,10 +50,7 @@ public class HibernateUtil {
     		 SessionFactory sessionFactory = metadata.getSessionFactoryBuilder().build();
     		 return sessionFactory;
     		 
-        }catch(Exception exception){
-        	System.out.println("localized message "+ exception.getLocalizedMessage());
-        	System.out.println("stack trace "+ Arrays.toString(exception.getStackTrace()));
-        	
+        }catch(Exception exception){       	
         	String _className =  Hibernate.class.getSimpleName();
         	throw new CustomException(exception.getMessage(),exception,tools.ErrorCode.DATABASE,_className );
         }
