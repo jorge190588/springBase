@@ -3,7 +3,7 @@ package model;
 import java.util.*;	
 import org.hibernate.*;
 
-import tools.CustomException;
+import error.CustomException;
 
 
 @SuppressWarnings("unchecked")

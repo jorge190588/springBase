@@ -1,7 +1,7 @@
 /**
  * 
  */
-package tools;
+package error;
 
 import java.util.List;
 

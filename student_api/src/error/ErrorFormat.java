@@ -1,4 +1,4 @@
-package tools;
+package error;
 
 public class ErrorFormat {
 	ErrorResponse _errorResponse;

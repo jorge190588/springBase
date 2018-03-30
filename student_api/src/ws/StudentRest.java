@@ -8,10 +8,10 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import entities.*;
+import error.CustomException;
+import error.ErrorFormat;
+import error.ErrorResponse;
 import model.*;
-import tools.CustomException;
-import tools.ErrorFormat;
-import tools.ErrorResponse;
 import tools.RestResponse;
 
 /**

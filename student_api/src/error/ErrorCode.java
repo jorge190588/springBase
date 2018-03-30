@@ -1,4 +1,4 @@
-package tools;
+package error;
 
 public enum ErrorCode {
 	DATABASE(1,"The connection to the database failed"),

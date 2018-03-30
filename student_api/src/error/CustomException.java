@@ -1,7 +1,7 @@
 /**
  * 
  */
-package tools;
+package error;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +21,7 @@ public class CustomException extends Exception  {
 	private List<ErrorMessage> _messageList;
 	private String _stackTrace;
 	
-	public CustomException(String message, Throwable cause, tools.ErrorCode errorCode,String className) {
+	public CustomException(String message, Throwable cause, error.ErrorCode errorCode,String className) {
 		super(message, cause);
 		this.set_className(className);
 		this.set_code(errorCode.get_code());
@@ -41,13 +41,13 @@ public class CustomException extends Exception  {
 		this.set_messageList(getMessageList(exception));
 	}
 
-	public CustomException(String message,  tools.ErrorCode errorCode,String className) {
+	public CustomException(String message,  error.ErrorCode errorCode,String className, int lineNumber) {
 		super(message);
 		this.set_className(className);
 		this.set_code(errorCode.get_code());
 		this.set_title(errorCode.get_title());
 		this.set_stackTrace(null);
-		this.set_lineNumber(0);
+		this.set_lineNumber(lineNumber);
 		this.set_messageList(null);
 	}
 

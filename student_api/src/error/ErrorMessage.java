@@ -1,4 +1,4 @@
-package tools;
+package error;
 
 public class ErrorMessage {
 	private String _message;

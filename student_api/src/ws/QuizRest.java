@@ -8,9 +8,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import entities.*;
+import error.CustomException;
+
 import java.util.*;
 import model.*;
-import tools.CustomException;
 
 /**
  * @author jorge

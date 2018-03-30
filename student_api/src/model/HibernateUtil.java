@@ -19,7 +19,7 @@ import org.hibernate.service.ServiceRegistry;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import entities.*;
-import tools.CustomException;
+import error.CustomException;
 
 public class HibernateUtil {
 	
@@ -52,11 +52,11 @@ public class HibernateUtil {
     		 
         }catch(Exception exception){       	
         	String _className =  Hibernate.class.getSimpleName();
-        	throw new CustomException(exception.getMessage(),exception,tools.ErrorCode.DATABASE,_className );
+        	throw new CustomException(exception.getMessage(),exception,error.ErrorCode.DATABASE,_className );
         }
     }
 
-    private static SessionFactory buildSessionAnnotationFactory() {
+    private static SessionFactory buildSessionAnnotationFactory() throws CustomException {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
             Configuration configuration = new Configuration();
@@ -69,15 +69,13 @@ public class HibernateUtil {
             SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 
             return sessionFactory;
-        }
-        catch (Throwable ex) {
-            // Make sure you log the exception, as it might be swallowed
-            System.err.println("Initial SessionFactory creation failed." + ex);
-            throw new ExceptionInInitializerError(ex);
+        }catch(Exception exception){       	
+        	String _className =  Hibernate.class.getSimpleName();
+        	throw new CustomException(exception.getMessage(),exception,error.ErrorCode.DATABASE,_className );
         }
     }
 
-    private static SessionFactory buildSessionJavaConfigFactory() {
+    private static SessionFactory buildSessionJavaConfigFactory() throws CustomException {
         try {
             Configuration configuration = new Configuration();
 
@@ -102,10 +100,9 @@ public class HibernateUtil {
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
             SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
             return sessionFactory;
-        }
-        catch (Throwable ex) {
-            System.err.println("Initial SessionFactory creation failed." + ex);
-            throw new ExceptionInInitializerError(ex);
+        }catch(Exception exception){       	
+        	String _className =  Hibernate.class.getSimpleName();
+        	throw new CustomException(exception.getMessage(),exception,error.ErrorCode.DATABASE,_className );
         }
     }
 
@@ -115,7 +112,7 @@ public class HibernateUtil {
 				sessionFactory = buildSessionFactory();
 				if (sessionFactory==null){
 					String _className =  Hibernate.class.getSimpleName();
-					throw new CustomException("Error to create session factory ",tools.ErrorCode.DATABASE,_className);	
+					throw new CustomException("Error to create session factory ",new Exception(),error.ErrorCode.DATABASE,_className);	
 				}
 			} catch (CustomException ex) {
 				throw new CustomException(ex);
@@ -123,13 +120,35 @@ public class HibernateUtil {
         return sessionFactory;
     }
 
-    public static SessionFactory getSessionAnnotationFactory() {
-        if(sessionAnnotationFactory == null) sessionAnnotationFactory = buildSessionAnnotationFactory();
+    public static SessionFactory getSessionAnnotationFactory() throws CustomException {
+        if(sessionAnnotationFactory == null){
+        	try{
+        		sessionAnnotationFactory = buildSessionAnnotationFactory();
+        		if (sessionAnnotationFactory==null){
+        			String _className =  Hibernate.class.getSimpleName();
+					throw new CustomException("Error to create session factory ",new Exception(),error.ErrorCode.DATABASE,_className);
+        		}
+        	}catch (CustomException ex) {
+				throw new CustomException(ex);
+			}
+        	
+        } 
+        	
         return sessionAnnotationFactory;
     }
 
-    public static SessionFactory getSessionJavaConfigFactory() {
-        if(sessionJavaConfigFactory == null) sessionJavaConfigFactory = buildSessionJavaConfigFactory();
+    public static SessionFactory getSessionJavaConfigFactory() throws CustomException {
+        if(sessionJavaConfigFactory == null){
+        	try{
+        		sessionJavaConfigFactory = buildSessionJavaConfigFactory();
+        		if (sessionJavaConfigFactory==null){
+        			String _className =  Hibernate.class.getSimpleName();
+        			throw new CustomException("Error to create session factory ",new Exception(),error.ErrorCode.DATABASE,_className);
+        		}
+        	}catch (CustomException ex) {
+				throw new CustomException(ex);
+			}
+        } 
         return sessionJavaConfigFactory;
     }
 }
