@@ -1,8 +1,10 @@
 package error;
 
 public enum ErrorCode {
-	DATABASE(1,"The connection to the database failed"),
-	GENERIC_ERROR(1,"Generic exception has occurred");
+	GENERIC_ERROR(100,"Generic exception has occurred"),
+	
+	DATABASE_CONNECTION(200,"The connection to the database failed"),
+	DATABASE_TABLE(201,"The connection to the database failed");
 	
 	private final int _code;
 	private final String _title;

@@ -1,10 +1,6 @@
 package model;
 
-import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.Properties;
-
-import org.apache.log4j.spi.ErrorCode;
 import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -13,11 +9,7 @@ import org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.exception.SQLGrammarException;
 import org.hibernate.service.ServiceRegistry;
-
-import com.microsoft.sqlserver.jdbc.SQLServerException;
-
 import entities.*;
 import error.CustomException;
 
@@ -52,7 +44,7 @@ public class HibernateUtil {
     		 
         }catch(Exception exception){       	
         	String _className =  Hibernate.class.getSimpleName();
-        	throw new CustomException(exception.getMessage(),exception,error.ErrorCode.DATABASE,_className );
+        	throw new CustomException(exception.getMessage(),exception,error.ErrorCode.DATABASE_CONNECTION,_className );
         }
     }
 
@@ -71,7 +63,7 @@ public class HibernateUtil {
             return sessionFactory;
         }catch(Exception exception){       	
         	String _className =  Hibernate.class.getSimpleName();
-        	throw new CustomException(exception.getMessage(),exception,error.ErrorCode.DATABASE,_className );
+        	throw new CustomException(exception.getMessage(),exception,error.ErrorCode.DATABASE_CONNECTION,_className );
         }
     }
 
@@ -102,7 +94,7 @@ public class HibernateUtil {
             return sessionFactory;
         }catch(Exception exception){       	
         	String _className =  Hibernate.class.getSimpleName();
-        	throw new CustomException(exception.getMessage(),exception,error.ErrorCode.DATABASE,_className );
+        	throw new CustomException(exception.getMessage(),exception,error.ErrorCode.DATABASE_CONNECTION,_className );
         }
     }
 
@@ -112,7 +104,7 @@ public class HibernateUtil {
 				sessionFactory = buildSessionFactory();
 				if (sessionFactory==null){
 					String _className =  Hibernate.class.getSimpleName();
-					throw new CustomException("Error to create session factory ",new Exception(),error.ErrorCode.DATABASE,_className);	
+					throw new CustomException("Error to create session factory ",new Exception(),error.ErrorCode.DATABASE_CONNECTION,_className);	
 				}
 			} catch (CustomException ex) {
 				throw new CustomException(ex);
@@ -126,7 +118,7 @@ public class HibernateUtil {
         		sessionAnnotationFactory = buildSessionAnnotationFactory();
         		if (sessionAnnotationFactory==null){
         			String _className =  Hibernate.class.getSimpleName();
-					throw new CustomException("Error to create session factory ",new Exception(),error.ErrorCode.DATABASE,_className);
+        			throw new CustomException("Error to create session factory ",new Exception(),error.ErrorCode.DATABASE_CONNECTION,_className);
         		}
         	}catch (CustomException ex) {
 				throw new CustomException(ex);
@@ -143,7 +135,7 @@ public class HibernateUtil {
         		sessionJavaConfigFactory = buildSessionJavaConfigFactory();
         		if (sessionJavaConfigFactory==null){
         			String _className =  Hibernate.class.getSimpleName();
-        			throw new CustomException("Error to create session factory ",new Exception(),error.ErrorCode.DATABASE,_className);
+        			throw new CustomException("Error to create session factory ",new Exception(),error.ErrorCode.DATABASE_CONNECTION,_className);
         		}
         	}catch (CustomException ex) {
 				throw new CustomException(ex);
