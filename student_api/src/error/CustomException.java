@@ -13,7 +13,7 @@ import org.apache.log4j.spi.ErrorCode;
  * @author jorge
  *
  */
-public class CustomException extends Exception  {
+public class CustomException extends Throwable  {
 	private int _code;
 	private String _title;
 	private String _className;

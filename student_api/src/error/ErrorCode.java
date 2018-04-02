@@ -4,7 +4,14 @@ public enum ErrorCode {
 	GENERIC_ERROR(100,"Generic exception has occurred"),
 	
 	DATABASE_CONNECTION(200,"The connection to the database failed"),
-	DATABASE_TABLE(201,"The connection to the database failed");
+	DATABASE_TABLE(201,"The connection to the database failed"),
+	
+	
+	REST_FIND(300,"Find registers"),
+	REST_CREATE(301,"Create a registrer"),
+	REST_UPDATE(302,"Update a registrer"),
+	REST_DELETE(303,"Delete a registrer");
+	
 	
 	private final int _code;
 	private final String _title;

@@ -3,21 +3,16 @@
 		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
+    <session-factory name="RandomStudent in javi\sql12">
+        <property name="current_session_context_class">thread</property>
         <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
         <property name="hibernate.connection.password">ComputerDB190%</property>
-        <property name="hibernate.connection.url">jdbc:sqlserver://192.168.99.100;databaseName=RandomStudent</property>
-        <property name="hibernate.connection.username">sa</property>
+        <property name="hibernate.connection.url">jdbc:sqlserver://javi\sql12;databaseName=RandomStudent</property>
+        <property name="hibernate.connection.username">std1</property>
         <property name="hibernate.default_catalog">RandomStudent</property>
         <property name="hibernate.default_schema">dbo</property>
         <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
-        <property name="current_session_context_class">thread</property>
         <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
-        <property name="show_sql">true</property>
-        <!-- 
-        <property name="hibernate.hbm2ddl.auto">create</property>
-         -->
-        
-        
+        <property name="show_sql">true</property>       
     </session-factory>
 </hibernate-configuration>

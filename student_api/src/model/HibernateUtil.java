@@ -74,8 +74,8 @@ public class HibernateUtil {
             //Create Properties, can be read from property files too
             Properties props = new Properties();
             props.put("hibernate.connection.driver_class", "com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            props.put("hibernate.connection.url", "jdbc:sqlserver://192.168.99.100;databaseName=RandomStudent");
-            props.put("hibernate.connection.username", "sa");
+            props.put("hibernate.connection.url", "jdbc:sqlserver://JAVI\\SQL12;databaseName=RandomStudent");
+            props.put("hibernate.connection.username", "std1");
             props.put("hibernate.connection.password", "ComputerDB190%");
             props.put("hibernate.current_session_context_class", "thread");
 

@@ -66,7 +66,7 @@ public abstract class AbstractModel<T> {
 	        return result;	        
 	    }
 	    
-	    public boolean create(T entity) throws Exception{
+	    public T create(T entity) throws Throwable{
 	    	Session session = null;
 	    	Transaction transaction = null;
 	    	try{
@@ -74,7 +74,7 @@ public abstract class AbstractModel<T> {
 	    		transaction =session.beginTransaction();
 	    		session.save(entity);
 	    		transaction.commit();
-	    	}catch(Exception exception){
+	    	}catch(Throwable exception){
 	    		if (transaction !=null){
 	    			transaction.rollback();
 	    		}
@@ -84,10 +84,10 @@ public abstract class AbstractModel<T> {
 	    			session.close();	
 	    		}
 	    	}
-	    	return true;
+	    	return entity;
 	    }
 	    
-	    public void update(T entity) throws Exception{
+	    public T update(T entity) throws Throwable{
 	    	Session session = null;
 	    	Transaction transaction = null;
 	    	try{
@@ -95,7 +95,7 @@ public abstract class AbstractModel<T> {
 	    		transaction =session.beginTransaction();
 	            session.update(entity);
 	    		transaction.commit();
-	    	}catch(Exception exception){
+	    	}catch(Throwable exception){
 	    		if (transaction !=null){
 	    			transaction.rollback();
 	    		}
@@ -105,9 +105,11 @@ public abstract class AbstractModel<T> {
 	    			session.close();	
 	    		}
 	    	}
+	    	
+	    	return entity;
 	    }
 	      
-	    public void delete(T entity) throws CustomException{
+	    public Boolean delete(T entity) throws CustomException{
 	    	Session session = null;
 	    	Transaction transaction = null;
 	    	try{
@@ -125,6 +127,7 @@ public abstract class AbstractModel<T> {
 	    			session.close();	
 	    		}
 	    	}
+	    	return true;
 	    }
 
 	    public List<T> query(String query) throws CustomException {
