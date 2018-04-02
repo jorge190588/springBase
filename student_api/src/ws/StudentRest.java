@@ -67,12 +67,12 @@ public class StudentRest   {
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@GET
-	@Path("findbycarne/{id}")
+	@Path("findbycarne/{carne}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public RestResponse findByCarne(@PathParam(value="carne") String carne) throws CustomException{
 		RestResponse response = new RestResponse();
 		try{
-			List<Student> list =studentModel.getAll("id='"+carne+"'");
+			List<Student> list =studentModel.getAll("carne='"+carne+"'");
 			response.set_data(list);	
 		}catch(CustomException exception){
 			ErrorFormat _errorFormat = new ErrorFormat(exception);
