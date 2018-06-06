@@ -178,4 +178,8 @@ An example of tomcat-users.xml file with the permissions added
 ```  
 Reference:[tomcat-default-administrator-password](https://www.mkyong.com/tomcat/tomcat-default-administrator-password/)
 
+# Download spring mvc jar files
+
+Access to [springframework page](http://repo.spring.io/release/org/springframework/spring/5.0.6.RELEASE/), and find the last version of spring mvc, for this example the spring mvc version is "spring-framework-5.0.6.RELEASE-dist".  After that download the jar files, copy it in lib WEB-INF/folder
+
 
