@@ -35,6 +35,8 @@ public class HibernateUtil {
     		 .addAnnotatedClass(Student.class ) 
     		 // You can add more entity classes here like above
     		 .addResource( "entities/Student.hbm.xml" )
+    		 .addResource( "entities/Teacher.hbm.xml" )
+    		 .addResource( "entities/Quiz.hbm.xml" )
     		 .getMetadataBuilder()
     		 .applyImplicitNamingStrategy(ImplicitNamingStrategyJpaCompliantImpl.INSTANCE )
     		 .build();

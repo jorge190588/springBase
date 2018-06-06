@@ -1,10 +1,8 @@
 package ws;
 
 import javax.ws.rs.core.Application;
-
 import error.CustomException;
 import error.ErrorFormat;
-
 import java.util.Set;
 
 @javax.ws.rs.ApplicationPath("rest")
@@ -20,6 +18,7 @@ public class ApplicationConfig extends Application {
 		try{
 			resources.add(ws.StudentRest.class);
 			resources.add(ws.QuizRest.class);
+			resources.add(ws.TeacherRest.class);
 		}catch(Exception exception){
 			throw new ExceptionInInitializerError(exception); 
 		}			

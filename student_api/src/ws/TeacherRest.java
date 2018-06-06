@@ -3,15 +3,19 @@
  */
 package ws;
 
-import javax.ws.rs.*;
+import java.util.List;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import entities.*;
+import entities.Teacher;
 import error.CustomException;
 import error.ErrorFormat;
-
-import java.util.*;
-import model.*;
+import model.TeacherModel;
 import tools.DateTools;
 import tools.RestResponse;
 
@@ -19,11 +23,12 @@ import tools.RestResponse;
  * @author jorge
  *
  */
-@Path("quiz")
-public class QuizRest {
-	
-	private QuizModel quizModel = new QuizModel();
-	private StudentModel studentModel = new StudentModel();	
+@Path("teacher")
+public class TeacherRest {
+	/**
+	 * 
+	 */
+	private TeacherModel teacherModel = new TeacherModel();
 	private DateTools dateTools = new DateTools();
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -33,7 +38,7 @@ public class QuizRest {
 	public RestResponse findAll() throws CustomException{
 		RestResponse response = new RestResponse();
 		try{
-			List<Quiz> list =quizModel.getAll();
+			List<Teacher> list =teacherModel.getAll();
 			response.set_data(list);	
 		}catch(CustomException exception){
 			ErrorFormat _errorFormat = new ErrorFormat(exception);
@@ -51,7 +56,7 @@ public class QuizRest {
 	public RestResponse findById(@PathParam(value="id") String id) throws CustomException{
 		RestResponse response = new RestResponse();
 		try{
-			List<Quiz> list =quizModel.getAll("id="+id);
+			List<Teacher> list =teacherModel.getAll("id="+id);
 			response.set_data(list);	
 		}catch(CustomException exception){
 			ErrorFormat _errorFormat = new ErrorFormat(exception);
@@ -66,12 +71,12 @@ public class QuizRest {
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@GET
-	@Path("findbycarne/{carne}")
+	@Path("findbycode/{code}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public RestResponse findByCarne(@PathParam(value="carne") String carne) throws CustomException{
+	public RestResponse findByCarne(@PathParam(value="code") String code) throws CustomException{
 		RestResponse response = new RestResponse();
 		try{
-			List<Quiz> list =quizModel.getAll("carne='"+carne+"'");
+			List<Teacher> list =teacherModel.getAll("code='"+code+"'");
 			response.set_data(list);	
 		}catch(CustomException exception){
 			ErrorFormat _errorFormat = new ErrorFormat(exception);
@@ -88,15 +93,15 @@ public class QuizRest {
 	@POST
 	@Path("create/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public RestResponse create(Student student)  throws CustomException 
+	public RestResponse create(Teacher teacher)  throws CustomException 
 	{
 		RestResponse response = new RestResponse();
 		try{
 			// check if exist students with the same carnet
-			List<Student> listWithSpecificCarne =studentModel.getAll("carne='"+student.getCarne()+"'");
+			List<Teacher> listWithSpecificCarne =teacherModel.getAll("code='"+teacher.getCode()+"'");
 			if (listWithSpecificCarne.size() >0){
 
-				CustomException ex = new CustomException("Already exists students with carne number "+ student.getCarne().toString() ,
+				CustomException ex = new CustomException("Already exists teachers with code number "+ teacher.getCode().toString() ,
 										new Exception(),
 										error.ErrorCode.REST_CREATE,
 										this.getClass().getSimpleName()
@@ -105,8 +110,8 @@ public class QuizRest {
 				ErrorFormat _errorFormat = new ErrorFormat(ex);
 				response.set_error(_errorFormat.get_errorResponse());
 			}else{
-				student.setCreatedAt(dateTools.get_CurrentDate());
-				Student created = studentModel.create(student);
+				teacher.setCreatedAt(dateTools.get_CurrentDate());
+				Teacher created = teacherModel.create(teacher);
 				response.set_data(created);		
 			}
 			
@@ -125,13 +130,13 @@ public class QuizRest {
 	@POST
 	@Path("update/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public RestResponse update(Student student) throws CustomException{
+	public RestResponse update(Teacher teacher) throws CustomException{
 		RestResponse response = new RestResponse();
 		try{
-			List<Student> listWithSpecificId =studentModel.getAll("id="+student.getId());
+			List<Teacher> listWithSpecificId =teacherModel.getAll("id="+teacher.getId());
 			if (listWithSpecificId.size() == 0){
 
-				CustomException ex = new CustomException("Student with id doent exists "+ student.getId() ,
+				CustomException ex = new CustomException("Student with id doent exists "+ teacher.getId() ,
 										new Exception(),
 										error.ErrorCode.REST_UPDATE,
 										this.getClass().getSimpleName()
@@ -140,9 +145,9 @@ public class QuizRest {
 				ErrorFormat _errorFormat = new ErrorFormat(ex);
 				response.set_error(_errorFormat.get_errorResponse());
 			}else{
-				student.setCreatedAt(listWithSpecificId.get(0).getCreatedAt());
-				student.setUpdatedAt(dateTools.get_CurrentDate());
-				Student updated = studentModel.update(student);
+				teacher.setCreatedAt(listWithSpecificId.get(0).getCreatedAt());
+				teacher.setUpdatedAt(dateTools.get_CurrentDate());
+				Teacher updated = teacherModel.update(teacher);
 				response.set_data(updated);
 			}
 		}catch (CustomException exception) {
@@ -163,7 +168,7 @@ public class QuizRest {
 	public RestResponse delete(@PathParam(value="id") String id) throws CustomException{
 		RestResponse response = new RestResponse();
 		try{
-			List<Student> listWithSpecificId =studentModel.getAll("id="+id);
+			List<Teacher> listWithSpecificId =teacherModel.getAll("id="+id);
 			if (listWithSpecificId.size() == 0){
 
 				CustomException ex = new CustomException("Student with id doent exists " + id,
@@ -175,7 +180,7 @@ public class QuizRest {
 				ErrorFormat _errorFormat = new ErrorFormat(ex);
 				response.set_error(_errorFormat.get_errorResponse());
 			}else{
-				Boolean deleted = studentModel.delete(studentModel.getAll("id="+id).get(0));
+				Boolean deleted = teacherModel.delete(teacherModel.getAll("id="+id).get(0));
 				response.set_data(deleted);
 			}
 				
@@ -189,4 +194,5 @@ public class QuizRest {
 		} 
 		return response;
 	}
+
 }
