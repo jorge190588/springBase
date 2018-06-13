@@ -63,10 +63,8 @@ public class Api {
 	
 	private void setResponse(ClientResponse clientResponse){
 		if (clientResponse== null) _response=null;
-		System.out.println("status code: "+ clientResponse.getStatus());
 		if (clientResponse.getStatus() == 200) {
 			String output = clientResponse.getEntity(String.class);
-			System.out.println(output);
 			ObjectMapper objectMapper = new ObjectMapper();
 			try {
 				this._response= objectMapper.readValue(output, RestResponse.class);

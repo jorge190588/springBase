@@ -23,6 +23,11 @@ public class MaintenanceMethods extends Api {
 		super.get();
 	}
 	
+	public void page(long pageNumber){
+		super.setMethodName(MethodName.page.get_name()+'/'+pageNumber);
+		super.get();
+	}
+	
 	public void delete(){
 		super.setMethodName(MethodName.delete.get_name());
 		super.delete();

@@ -1,8 +1,4 @@
-/**
- * 
- */
 package tools;
-
 /**
  * @author jorge
  *

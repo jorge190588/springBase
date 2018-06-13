@@ -2,7 +2,6 @@ package com.student.ws;
 
 import tools.*;
 import java.util.*;
-import org.codehaus.jackson.map.ObjectMapper;
 import com.student.entities.*;
 import com.sun.jersey.api.client.UniformInterfaceException;
 
@@ -29,6 +28,15 @@ public class StudentRestClient extends MaintenanceMethods{
 		data.setListStudents(list);
 		return data;
 	}
+	
+	public DataResponse findPage(long id) throws UniformInterfaceException{
+		setParams(new Object [] {});
+		super.page(id);
+		RestResponse response = super.getResponse();
+		DataResponse dataResponse = new DataResponse(response.get_data());
+		return dataResponse;
+	}
+	
 	
 	public Student remove(Integer id) throws UniformInterfaceException{
 		setParams(new Object [] {id});

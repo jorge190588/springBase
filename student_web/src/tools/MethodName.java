@@ -9,7 +9,9 @@ public enum MethodName {
 	
 	update(300,"update"),
 	
-	delete(400,"delete/{0}");
+	delete(400,"delete/{0}"),
+	
+	page(500,"page"),;
 	
 	
 	private final int _code;
