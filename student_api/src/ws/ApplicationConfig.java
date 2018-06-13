@@ -17,8 +17,8 @@ public class ApplicationConfig extends Application {
 	private void addRestResourceClasses(Set<Class<?>> resources) {
 		try{
 			resources.add(ws.StudentRest.class);
-			resources.add(ws.QuizRest.class);
-			resources.add(ws.TeacherRest.class);
+			//resources.add(ws.QuizRest.class);
+			//resources.add(ws.TeacherRest.class);
 		}catch(Exception exception){
 			throw new ExceptionInInitializerError(exception); 
 		}			

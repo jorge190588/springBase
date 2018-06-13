@@ -11,6 +11,7 @@ import entities.*;
 import error.CustomException;
 import error.ErrorFormat;
 import model.*;
+import tools.DataResponse;
 import tools.DateTools;
 import tools.RestResponse;
 
@@ -36,6 +37,31 @@ public class StudentRest   {
 		try{
 			List<Student> list =studentModel.getAll();
 			response.set_data(list);	
+		}catch(CustomException exception){
+			ErrorFormat _errorFormat = new ErrorFormat(exception);
+			response.set_error(_errorFormat.get_errorResponse());
+		} catch (Exception e) {
+			
+		}
+		return response;
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@GET
+	@Path("page/{page}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public RestResponse page(@PathParam(value="page") int page) throws CustomException{
+		
+		RestResponse response = new RestResponse();
+		try{
+			Page pagination = studentModel.getPagination(page);
+			List<Student> list = studentModel.getPage(page,pagination.getPageSize());
+			
+			DataResponse dataResponse = new DataResponse();
+			dataResponse.setData(list);
+			dataResponse.setPage(pagination);
+			response.set_data(dataResponse);
+			System.out.println("response data "+response.get_data());
 		}catch(CustomException exception){
 			ErrorFormat _errorFormat = new ErrorFormat(exception);
 			response.set_error(_errorFormat.get_errorResponse());

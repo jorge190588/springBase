@@ -8,27 +8,22 @@ package tools;
  *
  */
 public class RestResponse<T> {
-	private T _data;
-	private T _error;
+	private T data;
+	private T error;
 	
 	public T get_data() {
-		return _data;
+		return data;
 	}
 
 	public void set_data(T data) {
-		this._data = data;
+		this.data = data;
 	}
 	
 	public T get_error() {
-		return _error;
+		return error;
 	}
-
 	
 	public void set_error(T error) {
-		this._error= error;
-	}
-
-
-	
-	
+		this.error= error;
+	}	
 }
