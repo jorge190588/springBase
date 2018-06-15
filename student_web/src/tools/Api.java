@@ -10,12 +10,12 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 
-public class Api {
+public class Api<T> {
 	public WebResource _webResource;
 	public Client _client;
 	public static final String BASE_URI="http://localhost:8082/student_api/rest";
 	private String _methodName;
-	private Object[] _params;
+	private T _params;
 	private RestResponse _response;
 	
 	public Api(String serviceName){
@@ -35,13 +35,26 @@ public class Api {
 		this._methodName =  methodName;
 	}
 	
-	public void setParams(Object[] params){
+	public void setParams(T params){
 		this._params= params;
+	}
+	
+	public T getParams(){
+		return this._params;
 	}
 	
 	public void get(){
 		try{		
 			ClientResponse clientResponse = 	getClientResponseOfGetMethod();
+			setResponse(clientResponse);
+		}catch(Exception exception){
+			System.out.println("exception in findAll students "+ exception);
+		}
+	}
+	
+	public void post(){
+		try{		
+			ClientResponse clientResponse = 	getClientResponseOfPostMethod();
 			setResponse(clientResponse);
 		}catch(Exception exception){
 			System.out.println("exception in findAll students "+ exception);
@@ -63,6 +76,7 @@ public class Api {
 	
 	private void setResponse(ClientResponse clientResponse){
 		if (clientResponse== null) _response=null;
+		System.out.println(clientResponse.getStatus());
 		if (clientResponse.getStatus() == 200) {
 			String output = clientResponse.getEntity(String.class);
 			ObjectMapper objectMapper = new ObjectMapper();
@@ -83,6 +97,18 @@ public class Api {
 			return  _webResource.path(MessageFormat.format(this._methodName,this._params))
 								.accept("application/json")
 								.get(ClientResponse.class);	
+		}catch(Exception exception){
+			System.out.println("exception in getClientResponseOfGetMethod "+ exception);
+		}
+		return null;
+	}
+	
+	private ClientResponse getClientResponseOfPostMethod(){
+		try{
+			return  _webResource.path(this._methodName)
+								.accept("application/json")
+								.type("application/json")
+								.post(ClientResponse.class,this._params);	
 		}catch(Exception exception){
 			System.out.println("exception in getClientResponseOfGetMethod "+ exception);
 		}

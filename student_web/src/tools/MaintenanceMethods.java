@@ -2,15 +2,10 @@ package tools;
 
 import com.student.entities.*;
 
-public class MaintenanceMethods extends Api {
-	private Object [] _params;
+public class MaintenanceMethods<T> extends Api {
 	
 	public MaintenanceMethods(String serviceName){
 		super(serviceName);
-	}
-	
-	public void setParams(Object[]  params){
-		super.setParams(params);
 	}
 	
 	public void find(){
@@ -18,7 +13,7 @@ public class MaintenanceMethods extends Api {
 		super.get();
 	}
 	
-	public void find_All(){
+	public void findAll(){
 		super.setMethodName(MethodName.findAll.get_name());
 		super.get();
 	}
@@ -35,7 +30,7 @@ public class MaintenanceMethods extends Api {
 	
 	public void create(){
 		super.setMethodName(MethodName.create.get_name());
-		super.get();
+		super.post();
 	}
 	
 	public void update(){

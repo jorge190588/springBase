@@ -2,7 +2,11 @@ package com.student.ws;
 
 import tools.*;
 import java.util.*;
+
+import org.codehaus.jackson.map.ObjectMapper;
+
 import com.student.entities.*;
+import com.sun.corba.se.impl.orbutil.ObjectWriter;
 import com.sun.jersey.api.client.UniformInterfaceException;
 
 public class StudentRestClient extends MaintenanceMethods{
@@ -11,7 +15,7 @@ public class StudentRestClient extends MaintenanceMethods{
 		super("student");
 	}
 	
-	public Student findById(Integer id) throws UniformInterfaceException{
+	public Student findByIdStudent(Integer id) throws UniformInterfaceException{
 		setParams(new Object [] {id});
 		find();
 		Student student = new Student();
@@ -19,9 +23,9 @@ public class StudentRestClient extends MaintenanceMethods{
 		return student;
 	}
 	
-	public ListStudent findAll() throws UniformInterfaceException{
+	public ListStudent findAllStudent() throws UniformInterfaceException{
 		setParams(new Object [] {});
-		find_All();
+		findAll();
 		List<Student> list = new ArrayList<Student>();		
 		list = (List<Student>) super.getResponse().get_data();
 		ListStudent data = new ListStudent();
@@ -29,7 +33,7 @@ public class StudentRestClient extends MaintenanceMethods{
 		return data;
 	}
 	
-	public DataResponse findPage(long id) throws UniformInterfaceException{
+	public DataResponse findPageStudent(long id) throws UniformInterfaceException{
 		setParams(new Object [] {});
 		super.page(id);
 		RestResponse response = super.getResponse();
@@ -38,12 +42,26 @@ public class StudentRestClient extends MaintenanceMethods{
 	}
 	
 	
-	public Student remove(Integer id) throws UniformInterfaceException{
+	public Student removeStudent(Integer id) throws UniformInterfaceException{
 		setParams(new Object [] {id});
 		find();
 		Student student = new Student();
 		student = (Student) getResponse().get_data();
 		return student;
+	}
+	
+	public Student createStudent(Student student) throws UniformInterfaceException{
+		ObjectMapper mapper = new ObjectMapper();
+		try{
+			String params= mapper.writeValueAsString(student);
+			setParams(params.toString());
+			create();
+			return (Student) getResponse().get_data();
+		}catch(Exception ex){
+			return null;
+		}
+		
+		
 		
 	}
 	

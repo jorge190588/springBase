@@ -15,12 +15,12 @@ import com.student.entities.Student;
  */
 public class DataResponse<T>{
 	private T data;
-	private T page;
+	private T pagination;
 	
 	public DataResponse(Object object){
 		LinkedHashMap objectMap = (LinkedHashMap)object;
 		this.data = (T) objectMap.get("data");
-		this.page = (T) objectMap.get("page");
+		this.pagination = (T) objectMap.get("pagination");
 	}
 	
 	public T getData() {
@@ -31,12 +31,12 @@ public class DataResponse<T>{
 		this.data=_data;
 	}
 
-	public Object getPage() {
-		return this.page;
+	public Object getPagination() {
+		return this.pagination;
 	}
 
-	public void setPage(T _page) {
-		this.page=_page;
+	public void setPagination(T _pagination) {
+		this.pagination=_pagination;
 	}
 		
 }

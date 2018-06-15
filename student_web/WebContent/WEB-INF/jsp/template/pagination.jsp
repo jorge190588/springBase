@@ -6,23 +6,24 @@
 	<ul class="pagination justify-content-center">
 		
 		<li class="page-item ${pagination.currentPage == 1 ? 'disabled' : ''}">
-     		<a class="page-link" href="1" tabindex="-1">Primera</a>
+     		<a class="page-link" value="1" tabindex="-1">Primera</a>
    		</li>
    		
 		<li class="page-item ${pagination.currentPage == pagination.previousPage ? 'disabled' : ''}">
-     		<a class="page-link" href="${pagination.previousPage}" tabindex="-1">Anterior</a>
+     		<a class="page-link" value="${pagination.previousPage}" tabindex="-1">Anterior</a>
    		</li>
    		
 		<c:forEach begin="${pagination.start}" end="${pagination.end}" varStatus="loop">
-		    <li class="page-item"><a class="page-link" href="${loop.index}">${loop.index}</a></li>
+		    <li class="page-item"><a class="page-link" value="${loop.index}" tabindex="-1">${loop.index}</a></li>
 		</c:forEach>
 		
     	<li class="page-item ${pagination.currentPage == pagination.maxPage ? 'disabled' : ''}">
-      		<a class="page-link" href="${pagination.next}">Siguiente</a>
+      		<a class="page-link" value="${pagination.next}" tabindex="-1">Siguiente</a>
     	</li>
     	
     	<li class="page-item ${pagination.currentPage == pagination.maxPage ? 'disabled' : ''}">
-     		<a class="page-link" href="${pagination.maxPage}" tabindex="-1">Ultima</a>
+     		<!--href="${pagination.maxPage}"  -->
+     		<a class="page-link" value="${pagination.maxPage}" tabindex="-1">Ultima</a> 
    		</li>
    		
 	</ul>
