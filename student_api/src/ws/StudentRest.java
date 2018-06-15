@@ -8,11 +8,12 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import entities.*;
+import model.*;
 import error.CustomException;
 import error.ErrorFormat;
-import model.*;
 import tools.DataResponse;
 import tools.DateTools;
+import tools.Pagination;
 import tools.RestResponse;
 
 /**
@@ -21,9 +22,7 @@ import tools.RestResponse;
  */
 @Path("student")
 public class StudentRest   {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 4831482318671626792L;
 	private StudentModel studentModel = new StudentModel();
 	private DateTools dateTools = new DateTools();
@@ -54,12 +53,12 @@ public class StudentRest   {
 		
 		RestResponse response = new RestResponse();
 		try{
-			Page pagination = studentModel.getPagination(page);
+			Pagination pagination = studentModel.getPagination(page);
 			List<Student> list = studentModel.getPage(page,pagination.getPageSize());
 			
 			DataResponse dataResponse = new DataResponse();
 			dataResponse.setData(list);
-			dataResponse.setPage(pagination);
+			dataResponse.setPagination(pagination);
 			response.set_data(dataResponse);
 			System.out.println("response data "+response.get_data());
 		}catch(CustomException exception){
@@ -113,13 +112,31 @@ public class StudentRest   {
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@POST
-	@Path("create/")
+	@Path("create")
 	@Produces(MediaType.APPLICATION_JSON)
 	public RestResponse create(Student student)  throws CustomException 
 	{
 		RestResponse response = new RestResponse();
 		try{
 			// check if exist students with the same carnet
+			if (student==null){
+				CustomException ex = new CustomException("Student is null",new Exception(),
+						error.ErrorCode.REST_CREATE,this.getClass().getSimpleName());	
+				ErrorFormat _errorFormat = new ErrorFormat(ex);
+				response.set_error(_errorFormat.get_errorResponse());
+				return response;
+			}
+			
+			// check if exist students with the same carnet
+			if (student.getCarne()==null || student.getFirstName()==null || student.getLastName()==null ){
+				CustomException ex = new CustomException("Carne, first name and last name are requiered",new Exception(),
+						error.ErrorCode.REST_CREATE,this.getClass().getSimpleName());	
+				ErrorFormat _errorFormat = new ErrorFormat(ex);
+				response.set_error(_errorFormat.get_errorResponse());
+				return response;
+			}
+			
+			
 			List<Student> listWithSpecificCarne =studentModel.getAll("carne='"+student.getCarne()+"'");
 			if (listWithSpecificCarne.size() >0){
 

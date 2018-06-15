@@ -183,3 +183,21 @@ Reference:[tomcat-default-administrator-password](https://www.mkyong.com/tomcat/
 Access to [springframework page](http://repo.spring.io/release/org/springframework/spring/5.0.6.RELEASE/), and find the last version of spring mvc, for this example the spring mvc version is "spring-framework-5.0.6.RELEASE-dist".  After that download the jar files, copy it in lib WEB-INF/folder
 
 
+
+# Hibernate
+
+* [hibernate circular foreign key](https://stackoverflow.com/questions/3513950/hibernate-circular-foreign-key)
+* [LazyInitializationException](https://vladmihalcea.com/the-open-session-in-view-anti-pattern/)
+
+## How to avoid cyclic reference
+
+I have two entities, element and elementType, element is the main entity, it has an attribute named 'elementTypeId' and it's a foreign key.  To resolve the cyclic reference is required to delete the reference of the same element with the following code 'elementType.setElments(null)' into of setElementType method into ElementType entity class.   The complete code is:
+
+```
+// Element class
+
+public void setEntiti(Entiti entiti) {
+		entiti.setElements(null);
+		this.entiti = entiti;
+	}
+```

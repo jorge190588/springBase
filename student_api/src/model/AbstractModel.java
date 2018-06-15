@@ -3,17 +3,15 @@ package model;
 import java.util.*;	
 import org.hibernate.*;
 
-import entities.Page;
 import error.CustomException;
+import tools.Pagination;
 
 
 @SuppressWarnings("unchecked")
 public abstract class AbstractModel<T> {
 	  	private Class<T> entityClass;
 	  	
-	  	
-	    public AbstractModel() {
-	    }
+	    public AbstractModel() {}
 
 	    public AbstractModel(Class<T> entityClass) {
 	        this.entityClass = entityClass;
@@ -31,7 +29,7 @@ public abstract class AbstractModel<T> {
 	    	}
 	    	catch(Throwable exception){
 	    		result=null;
-	    		if (transaction !=null){
+	    		if (transaction !=null && transaction.isActive()){
 	    			transaction.rollback();
 	    		}
 	        	throw new CustomException(exception.getMessage(),exception,error.ErrorCode.DATABASE_TABLE,this.getClass().getSimpleName());
@@ -40,14 +38,11 @@ public abstract class AbstractModel<T> {
 	    			session.close();	
 	    		}
 	    	}
-	        
 	        return result;
 	    }
 	    
-	    
 	    public List<T> getPage(int page, int pageSize) throws CustomException{
 	    	page = page-1;
-	    	
 	    	List<T> result =null;
 	    	Session session = null;
 	    	Transaction transaction=null; 
@@ -59,7 +54,7 @@ public abstract class AbstractModel<T> {
 	    	}
 	    	catch(Throwable exception){
 	    		result=null;
-	    		if (transaction !=null){
+	    		if (transaction !=null && transaction.isActive()){
 	    			transaction.rollback();
 	    		}
 	        	throw new CustomException(exception.getMessage(),exception,error.ErrorCode.DATABASE_TABLE,this.getClass().getSimpleName());
@@ -72,8 +67,8 @@ public abstract class AbstractModel<T> {
 	        return result;
 	    }
 	    
-	    public Page getPagination(int page) throws CustomException{
-	    	Page _page = new Page();
+	    public Pagination getPagination(int page) throws CustomException{
+	    	Pagination _page = new Pagination();
 	    	_page.setCurrentPage(page);
 	    	
 	    	Session session = null;
@@ -87,7 +82,7 @@ public abstract class AbstractModel<T> {
 	    	}
 	    	catch(Throwable exception){
 	    		_page.setTotalRows(0);
-	    		if (transaction !=null){
+	    		if (transaction !=null && transaction.isActive()){
 	    			transaction.rollback();
 	    		}
 	        	throw new CustomException(exception.getMessage(),exception,error.ErrorCode.DATABASE_TABLE,this.getClass().getSimpleName());
@@ -117,7 +112,7 @@ public abstract class AbstractModel<T> {
 	    		transaction.commit();
 	    	}catch(Exception exception){
 	    		result=null;
-	    		if (transaction !=null){
+	    		if (transaction !=null && transaction.isActive()){
 	    			transaction.rollback();
 	    		}
 	        	throw new CustomException(exception.getMessage(),exception,error.ErrorCode.DATABASE_TABLE,this.getClass().getSimpleName());
@@ -139,7 +134,7 @@ public abstract class AbstractModel<T> {
 	    		session.save(entity);
 	    		transaction.commit();
 	    	}catch(Throwable exception){
-	    		if (transaction !=null){
+	    		if (transaction !=null && transaction.isActive()){
 	    			transaction.rollback();
 	    		}
 	    		throw new CustomException(exception.getMessage(),exception,error.ErrorCode.DATABASE_TABLE,this.getClass().getSimpleName());
@@ -160,7 +155,7 @@ public abstract class AbstractModel<T> {
 	            session.update(entity);
 	    		transaction.commit();
 	    	}catch(Throwable exception){
-	    		if (transaction !=null){
+	    		if (transaction !=null && transaction.isActive()){
 	    			transaction.rollback();
 	    		}
 	    		throw new CustomException(exception.getMessage(),exception,error.ErrorCode.DATABASE_TABLE,this.getClass().getSimpleName());
@@ -182,7 +177,7 @@ public abstract class AbstractModel<T> {
 	    	    session.delete(entity);
 	    		transaction.commit();
 	    	}catch(Exception exception){
-	    		if (transaction !=null){
+	    		if (transaction !=null && transaction.isActive()){
 	    			transaction.rollback();
 	    		}
 	    		throw new CustomException(exception.getMessage(),exception,error.ErrorCode.DATABASE_TABLE,this.getClass().getSimpleName());
@@ -205,7 +200,7 @@ public abstract class AbstractModel<T> {
 		        transaction.commit();
 	    	}catch(Exception exception){
 	    		result=null;
-	    		if (transaction !=null){
+	    		if (transaction !=null && transaction.isActive()){
 	    			transaction.rollback();
 	    		}
 	    		throw new CustomException(exception.getMessage(),exception,error.ErrorCode.DATABASE_TABLE,this.getClass().getSimpleName());

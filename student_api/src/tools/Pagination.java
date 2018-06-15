@@ -1,6 +1,6 @@
-package entities;
+package tools;
 
-public class Page {
+public class Pagination {
 	private int totalRows;
 	private int currentPage;
 	private int maxPage;
@@ -11,7 +11,7 @@ public class Page {
 	private int end;
 	private int pageRange=5;
 	
-	public Page(){}
+	public Pagination(){}
 	
 	public void calculate_maxPage(){
 		if ((this.totalRows > 0) && (this.pageSize>0)){

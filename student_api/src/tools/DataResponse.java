@@ -1,7 +1,7 @@
 package tools;
 
 public class DataResponse<T>{
-	private T page;
+	private T pagination;
 	private T data;
 		
 	public T getData() {
@@ -12,12 +12,12 @@ public class DataResponse<T>{
 		this.data = data;
 	}
 	
-	public T getPage() {
-		return page;
+	public T getPagination() {
+		return pagination;
 	}
 
-	public void setPage(T page) {
-		this.page = page;
+	public void setPagination(T pagination) {
+		this.pagination = pagination;
 	}
 }
 

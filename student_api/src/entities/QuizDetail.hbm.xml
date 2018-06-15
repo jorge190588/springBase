@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 14, 2018 7:26:08 PM by Hibernate Tools 5.1.0.Alpha1 -->
+<hibernate-mapping>
+    <class name="entities.QuizDetail" table="quizDetail" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="quiz" class="entities.Quiz" fetch="select">
+            <column name="quiz" not-null="true" />
+        </many-to-one>
+        <many-to-one name="student" class="entities.Student" fetch="select">
+            <column name="student" not-null="true" />
+        </many-to-one>
+        <property name="point" type="java.lang.Integer">
+            <column name="point" />
+        </property>
+        <property name="createdAt" type="timestamp">
+            <column name="created_at" length="23" />
+        </property>
+        <property name="updatedAt" type="timestamp">
+            <column name="updated_at" length="23" />
+        </property>
+    </class>
+</hibernate-mapping>
