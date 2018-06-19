@@ -1,5 +1,5 @@
 package entities;
-// Generated Jun 14, 2018 7:26:08 PM by Hibernate Tools 5.1.0.Alpha1
+// Generated Jun 16, 2018 6:27:45 AM by Hibernate Tools 5.1.0.Alpha1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -50,7 +50,6 @@ public class Student implements java.io.Serializable {
 	}
 
 	@Id
-
 	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;

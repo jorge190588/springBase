@@ -3,8 +3,11 @@ package model;
 import java.util.*;	
 import org.hibernate.*;
 
+import entities.Entiti;
 import error.CustomException;
+import error.ErrorFormat;
 import tools.Pagination;
+import tools.RestResponse;
 
 
 @SuppressWarnings("unchecked")
@@ -100,15 +103,16 @@ public abstract class AbstractModel<T> {
 	        return _page;
 	    }
 
-
 		public List<T> getAll(String condition) throws CustomException{
 	    	List<T> result =null;
 	    	Session session = null;
 	    	Transaction transaction = null;
+	    	if (condition.length()>0) condition = " where "+condition;
+	    	
 	    	try{
 	    		session=HibernateUtil.getSessionFactory().openSession();
 	    		transaction =session.beginTransaction();
-	    		result= session.createQuery("FROM " + entityClass.getName() + " WHERE " + condition).getResultList();
+	    		result= session.createQuery("FROM " + entityClass.getName() + condition).getResultList();
 	    		transaction.commit();
 	    	}catch(Exception exception){
 	    		result=null;
@@ -121,10 +125,9 @@ public abstract class AbstractModel<T> {
 	    			session.close();	
 	    		}
 	    	}
-	        
 	        return result;	        
 	    }
-	    
+			    
 	    public T create(T entity) throws Throwable{
 	    	Session session = null;
 	    	Transaction transaction = null;

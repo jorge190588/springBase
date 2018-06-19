@@ -1,5 +1,5 @@
 package entities;
-// Generated Jun 14, 2018 7:26:08 PM by Hibernate Tools 5.1.0.Alpha1
+// Generated Jun 16, 2018 6:27:45 AM by Hibernate Tools 5.1.0.Alpha1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -24,7 +24,8 @@ public class Element implements java.io.Serializable {
 	private Entiti entiti;
 	private String idelement;
 	private String label;
-	private Boolean required;
+	private Boolean isRequired;
+	private Boolean isUnique;
 	private String pattern;
 	private String patternMessage;
 	private Date createdAt;
@@ -41,14 +42,15 @@ public class Element implements java.io.Serializable {
 		this.label = label;
 	}
 
-	public Element(int id, ElementType elementType, Entiti entiti, String idelement, String label, Boolean required,
-			String pattern, String patternMessage, Date createdAt, Date updatedAt) {
+	public Element(int id, ElementType elementType, Entiti entiti, String idelement, String label, Boolean isRequired,
+			Boolean isUnique, String pattern, String patternMessage, Date createdAt, Date updatedAt) {
 		this.id = id;
 		this.elementType = elementType;
 		this.entiti = entiti;
 		this.idelement = idelement;
 		this.label = label;
-		this.required = required;
+		this.isRequired = isRequired;
+		this.isUnique = isUnique;
 		this.pattern = pattern;
 		this.patternMessage = patternMessage;
 		this.createdAt = createdAt;
@@ -106,13 +108,22 @@ public class Element implements java.io.Serializable {
 		this.label = label;
 	}
 
-	@Column(name = "required")
-	public Boolean getRequired() {
-		return this.required;
+	@Column(name = "isRequired")
+	public Boolean getIsRequired() {
+		return this.isRequired;
 	}
 
-	public void setRequired(Boolean required) {
-		this.required = required;
+	public void setIsRequired(Boolean isRequired) {
+		this.isRequired = isRequired;
+	}
+
+	@Column(name = "isUnique")
+	public Boolean getIsUnique() {
+		return this.isUnique;
+	}
+
+	public void setIsUnique(Boolean isUnique) {
+		this.isUnique = isUnique;
 	}
 
 	@Column(name = "pattern", length = 100)

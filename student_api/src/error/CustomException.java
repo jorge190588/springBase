@@ -50,6 +50,8 @@ public class CustomException extends Throwable  {
 		this.set_lineNumber(lineNumber);
 		this.set_messageList(null);
 	}
+	
+	
 
 	public List<ErrorMessage> getMessageList(Throwable throwable) {
 		List<ErrorMessage> errorMessageList =  new ArrayList<ErrorMessage>();
