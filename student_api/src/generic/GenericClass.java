@@ -3,6 +3,7 @@ package generic;
 import java.lang.reflect.Method;
 import java.util.Date;
 
+@SuppressWarnings({"unchecked","rawtypes"})
 public class GenericClass<T> {
 	private Boolean isError=false;
 	private String errorMessage;
@@ -25,10 +26,18 @@ public class GenericClass<T> {
 	
 	public void executeMethod(){
 		T result=null;
-		 
-		if (this.isError==true) return;
+		GenericMethod genericMethod;
 		try{
-			Method method = getMethod();
+			genericMethod = new GenericMethod(genericClass,methodName);
+			genericMethod.setParam(this.param);
+			genericMethod.setMethod();	
+			if (genericMethod.getIsError()==true){
+				this.setIsError(true);
+				this.setMethodName(genericMethod.getErrorMessage());
+				return;
+			}
+			Method method = genericMethod.getMethod();
+			
 			if (this.param==null){
 				result = (T) method.invoke(this.genericClass);	
 			}else{
@@ -64,33 +73,10 @@ public class GenericClass<T> {
 				index++;
 			}
 		}
-		
 		return result;
 	} 
-	//if (param instanceof Object[]){
-	//result = (T) method.invoke(this.genericClass,new Object[] {new Integer(1), new Integer(10)});
 	
-	private Method getMethod(){
-		GenericMethod genericMethod = new GenericMethod(genericClass,methodName);
-		Method method = null;
-		try{
-			genericMethod.setParam(this.param);
-			genericMethod.setMethod();	
-			
-			if (genericMethod.getIsError()==true){
-				this.setIsError(true);
-				this.setMethodName(genericMethod.getErrorMessage());
-			}
-			method=genericMethod.getMethod();
-		}catch(Exception exception){
-			this.setIsError(true);
-			this.setErrorMessage("Error to execute method "+this.methodName+" in class "+this.genericClass.getClass().getName()+" with param "+this.param);
-		}
-		
-		return method;
-	}
-	
-	
+	 
 	public Boolean getIsError() {
 		return isError;
 	}

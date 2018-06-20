@@ -16,8 +16,6 @@ public class GenericValidations<T> {
 	private ElementModel elementModel = new ElementModel();
 	private EntitiModel entitiModel = new EntitiModel();
 	private DateTools dateTools = new DateTools();
-	private Boolean isErrorInExecuteMethod;
-	 
 	
 	public GenericValidations(String _moduleName) throws CustomException{
 		this.moduleName=_moduleName;
@@ -64,9 +62,8 @@ public class GenericValidations<T> {
 	
 	@SuppressWarnings("rawtypes")
 	public void checkIfIdElementExistAndIsGratherThanZero(Object _class){
-		String id= "Id",methodName="get"+id;
-		
-		GenericClass genericClass = new GenericClass(_class.getClass(),methodName);
+		String methodName="getId";
+		GenericClass genericClass = new GenericClass(_class,methodName);
 		genericClass.executeMethod();
 		if (genericClass.getIsError()==true) {
 			this.setIsError(true); 
@@ -77,16 +74,19 @@ public class GenericValidations<T> {
 		if (genericClass.getResult()==null){
 			this.setIsError(true);
 			this.setErrorMessage("Id doesnt exists");
+			return;
 		}
 		
 		if ((genericClass.getResult() instanceof Integer)==false){
 			this.setIsError(true);
 			this.setErrorMessage("Id should be an integer");
+			return;
 		}else{
 			int value = (Integer) genericClass.getResult();
 			if (value==0){
 				this.setIsError(true);
 				this.setErrorMessage("Id should be grather than zero");
+				return;
 			}
 		}
 	}
@@ -285,7 +285,6 @@ public class GenericValidations<T> {
 						this.setErrorMessage(genericClass.getErrorMessage());
 						return;
 					}
-					
 				}
 			}
 		}catch(Exception exception){

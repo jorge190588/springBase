@@ -60,7 +60,7 @@ public class StudentRest   {
 	}
 	
 	@POST
-	@Path("update/")
+	@Path("update")
 	@Produces(MediaType.APPLICATION_JSON)
 	public RestResponse update(Student updateElement) throws CustomException{
 		 return crud.update(updateElement);

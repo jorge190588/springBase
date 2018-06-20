@@ -1,7 +1,9 @@
 package generic;
 import java.lang.reflect.Method;
 import java.util.Date;
+import java.util.Set;
 
+@SuppressWarnings("rawtypes")
 public class GenericMethod<T> {
 	private Method method;
 	private Boolean isError=false;
@@ -33,6 +35,8 @@ public class GenericMethod<T> {
 			}else if (param instanceof Object[]){
 				Class paramList [] = convertParamsToClass(param);
 				method = genericClass.getClass().getMethod(this.name,paramList);
+			}else if (param instanceof Set<?>){
+				method = genericClass.getClass().getMethod(this.name,Set.class);
 			}else if (param instanceof Object){
 				method = genericClass.getClass().getMethod(this.name,Object.class);
 			}
