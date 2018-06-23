@@ -201,3 +201,21 @@ public void setEntiti(Entiti entiti) {
 		this.entiti = entiti;
 	}
 ```
+
+## No se puede insertar un valor explícito en la columna de identidad de la tabla 'student' cuando IDENTITY_INSERT es OFF.
+
+* [Hiberate problems, jdbc IDENTITY_INSERT is set to OFF
+](https://stackoverflow.com/questions/17056469/hibernate-and-ms-sql-server-identity-column)
+
+It issue is fixed when 'generator class' proporty is changed in {entiti}.hbm.xml file as the following example:
+
+```
+<id name="id" type="int">
+	<column name="id" />
+    <generator class="native" />
+</id>
+```
+
+## Execute generic methods in generic class in java
+
+* [How do I invoke a Java method when given the method name as a string?](https://stackoverflow.com/questions/160970/how-do-i-invoke-a-java-method-when-given-the-method-name-as-a-string)
