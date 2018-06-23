@@ -48,9 +48,10 @@ public class GenericClass<T> {
 				}
 			}
 			this.setResult(result);
-		}catch(Exception exceptionElement){
+		}catch(Exception exception){
 			this.setIsError(true);
-			this.setErrorMessage("Error to execute method "+this.methodName+" in class "+this.genericClass.getClass().getName());
+			System.out.println(exception.getCause().getMessage());
+			this.setErrorMessage(exception.getCause().getMessage());
 		}
 	}
 	

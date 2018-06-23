@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 22, 2018 2:03:49 PM by Hibernate Tools 5.1.0.Alpha1 -->
+<hibernate-mapping>
+    <class name="entities.Element" table="element" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="elementType" class="entities.ElementType" fetch="select">
+            <column name="elementTypeId" not-null="true" />
+        </many-to-one>
+        <many-to-one name="entiti" class="entities.Entiti" fetch="select">
+            <column name="entitiId" not-null="true" />
+        </many-to-one>
+        <property name="idelement" type="string">
+            <column name="idelement" length="50" not-null="true" />
+        </property>
+        <property name="label" type="string">
+            <column name="label" length="100" not-null="true" />
+        </property>
+        <property name="isRequired" type="java.lang.Boolean">
+            <column name="isRequired" />
+        </property>
+        <property name="isUnique" type="java.lang.Boolean">
+            <column name="isUnique" />
+        </property>
+        <property name="pattern" type="string">
+            <column name="pattern" length="100" />
+        </property>
+        <property name="patternMessage" type="string">
+            <column name="patternMessage" length="150" />
+        </property>
+        <property name="orderElement" type="int">
+            <column name="orderElement" not-null="true" />
+        </property>
+        <property name="isCreate" type="java.lang.Boolean">
+            <column name="isCreate" />
+        </property>
+        <property name="isUpdate" type="java.lang.Boolean">
+            <column name="isUpdate" />
+        </property>
+        <property name="isDelete" type="java.lang.Boolean">
+            <column name="isDelete" />
+        </property>
+        <property name="createdAt" type="timestamp">
+            <column name="created_at" length="23" />
+        </property>
+        <property name="updatedAt" type="timestamp">
+            <column name="updated_at" length="23" />
+        </property>
+    </class>
+</hibernate-mapping>

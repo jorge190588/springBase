@@ -102,6 +102,7 @@ public class GenericValidations<T> {
 	@SuppressWarnings("rawtypes")
 	public void checkIfOneOfAllParamsIsRequiredWithPattern(Object _class) {
 		int errorCounter=0;
+		if (this.entiti==null) return;
 		String listElementCondition="entitiId="+this.entiti.getId()+" and isRequired=1";
 		String message="",methodName="",idElement,pattern="";
 		GenericClass genericClass;
@@ -127,8 +128,9 @@ public class GenericValidations<T> {
 					message+=idElement;
 					errorCounter++;
 				}else{
-					pattern=element.getPattern().replace("\\\\", "\\" );
-					matches= ((String) genericClass.getResult()).matches(pattern);
+					//pattern=element.getPattern().replace("\\\\", "\\" );
+					pattern= element.getPattern();
+					matches= genericClass.getResult().toString().matches(pattern);
 					if (matches==false){
 						this.setIsError(true);
 						if(errorCounter>0) message+=", ";
@@ -167,7 +169,7 @@ public class GenericValidations<T> {
 			
 			String id = genericClass.getResult().toString();
 			
-			List<Element> listOfUniqueElements= getListElement("entitiId="+entiti.getId()+" and isUnique=1");
+			List<Element> listOfUniqueElements= getListElement("entitiId="+entiti.getId()+" and isUnique=1 ");
 			for(Element element: listOfUniqueElements){
 				
 				idElement = capitalizeString(element.getIdelement());
@@ -214,7 +216,7 @@ public class GenericValidations<T> {
 		String message="",idElement,methodName,params;
 		Object uniqueValue;
 		GenericClass genericClass;
-		
+		if (entiti==null) return;
 		try{
 			List<Element> listOfUniqueElements= getListElement("entitiId="+entiti.getId()+" and isUnique=1");
 			for(Element element: listOfUniqueElements){
