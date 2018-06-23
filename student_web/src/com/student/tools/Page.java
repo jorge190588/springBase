@@ -1,4 +1,4 @@
-package tools;
+package com.student.tools;
 
 public class Page {
 	private int totalRows;

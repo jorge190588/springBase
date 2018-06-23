@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="https://getbootstrap.com/docs/4.1/examples/sticky-footer/sticky-footer.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 	<link rel="stylesheet" href="assets/css/navBar.css">
+	<link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/assets/scss/_component-examples.scss">
 </head>
 <body>
 	<jsp:include page="template/menu.jsp" />

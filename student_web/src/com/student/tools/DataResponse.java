@@ -1,4 +1,4 @@
-package tools;
+package com.student.tools;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -13,6 +13,7 @@ import com.student.entities.Student;
  * @author jorge
  *
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 public class DataResponse<T>{
 	private T data;
 	private T pagination;

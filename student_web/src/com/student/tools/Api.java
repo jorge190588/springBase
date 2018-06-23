@@ -1,4 +1,4 @@
-package tools;
+package com.student.tools;
 
 import java.io.IOException;
 import java.text.MessageFormat;

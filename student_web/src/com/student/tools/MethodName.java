@@ -1,11 +1,10 @@
-package tools;
+package com.student.tools;
 
 public enum MethodName {
 	create(100,"create"),
 	
-	find(200,"find"),
+	findby(200,"findby"),
 	findAll(201,"findall"),
-	findByName(202,"findByName"),
 	
 	update(300,"update"),
 	

@@ -1,6 +1,5 @@
 package com.student.entities;
 import java.util.*;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
