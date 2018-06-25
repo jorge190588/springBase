@@ -69,6 +69,8 @@
 	<script src="assets/js/general/navOptions.js"></script>
 	<script src="assets/js/general/formValidations.js"></script>
 	<script src="assets/js/general/formValues.js"></script>
+	<script src="assets/js/general/crud/form.js"></script>
 	<script src="assets/js/student/index.js"></script>
+	
 </body>
 </html>
