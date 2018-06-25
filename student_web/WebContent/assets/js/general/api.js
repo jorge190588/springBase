@@ -2,88 +2,61 @@
  * Jorge Salvador Santos Neill
  * 12/06/2018
  */
-
-var Api = function () {
-	_pathApi = "",
-	_pathWeb = "";
+var ApiModule = function () {
+	var _private = {}, _public = {}; 
+	_private._path=null,
+	_private._serviceName=null,//student_api/rest/ or /student_web/
+	_private._dataType="json",
+	_private._dataFormat="json";
 	
-	function _setPathApi(){
-		_pathApi= getHostFromUrl()+'/student_api/rest/';
-		_pathApi = addHttpToUrl(_pathApi);
-	}
-	function _getPathApi(){
-		if (_pathApi=='')
-			_setPathApi();
-		return _pathApi;
-	}
-	function _setPathWeb(){
-		_pathWeb= getHostFromUrl()+'/student_web/';
-		_pathWeb= addHttpToUrl(_pathWeb);
-	}
-	function _getPathWeb(){
-		if (_pathWeb=='')
-			_setPathWeb();
-		return _pathWeb;
-	}
-	function getHostFromUrl(){
+	_public.__construct = function(serviceName) {
+		_private._serviceName=serviceName;
+		_private.setPath();
+		return _public;
+	};
+	
+	_public.setDatatypeText=function(){
+		_private._dataType='text';
+	};
+	
+	_public.setDataformatText=function(){
+		_private._dataFormat='text';
+	};
+	
+	_private.setPath=function(){
+		_private._path = _private.getHostFromUrl()+_private._serviceName;
+		_private._path = _private.addHttpToUrl(_private._path);
+	};
+	
+	_public.getPath=function(){
+		if (_private._path=='')
+			_private._setPath();
+		return _private._path;
+	};
+	
+	_private.getHostFromUrl=function(){
 		return window.location.host;
-	}
-	function addHttpToUrl(_url){
+	};
+	
+	_private.addHttpToUrl=function(_url){
 		(_url.indexOf("http://") !=-1) ? "": _url="http://"+_url;
 		return _url;
-	}
-	function init(){
-		_setPathApi();
-		_setPathWeb();
-	}
-	function httpPostApi(_urlService,_parameters,callback){
-		var _url= _getPathApi()+_urlService;
-		httpPost(_url,callback,_parameters,'json','json');
-	}
-	function httpPostWeb(_urlService,_parameters,callback){
-		var _url= _getPathWeb()+_urlService;
-		httpPost(_url,callback,_parameters,'text','text');
-	}
-	function httpPost(_url,callback,_data,_dataType,_dataFormat){
+	};
+	
+	_public.post=function(_urlService,_parameters,callback){
+		var _url= _public.getPath()+_urlService;
+		_private.httpPost(_url,callback,_parameters);
+	};
+	 
+	_private.httpPost=function(_url,callback,_data){
 		$.ajax({
 			type:"POST",
 			url: _url,
 			contentType: "application/json; charset=utf-8",
-			dataType: _dataType,
+			dataType: _private._dataType,
 			data: _data, 
 			cache: false,
 			success: function(data) {
-	    		//console.log('data',data);
-	    		callback(data,null);
-			},
-			error: function(xhr, status, error) {
-		        console.log('error ',error);
-		        console.log('status ',status);
-		        console.log('xhr ',xhr);
-		        callback(null,error);
-	      }
-	    });
-	}
-	function httpGetApi(_urlService,_parameters,callback){
-		var _url= _getPathApi()+_urlService;
-		httpGet(_url,callback,'json','json');
-	}
-	function httpGetWeb(_urlService,_parameters,callback){
-		var _url= _getPathWeb()+_urlService;
-		httpGet(_url,callback,'text','text');
-	}
-	function httpGet(_url,callback,_dataType,_dataFormat){
-		$.ajax({
-			type:"GET",
-			url: _url,
-			contentType: "application/json; charset=utf-8",
-			dataType: _dataType,
-			data: { 
-				format: _dataFormat,
-			}, 
-			cache: false,
-			success: function(data) {
-	    		//console.log('data',data);
 	    		callback(data,null);
 			},
 			error: function(xhr, status, error) {
@@ -95,14 +68,33 @@ var Api = function () {
 	    });
 	};
 	
-	return {
-		init:init,
-		getApi: httpGetApi,
-		getWeb: httpGetWeb,
-		postApi: httpPostApi,
-		postWeb: httpPostWeb,
-		getPathApi: _getPathApi,
-		getPathWeb: _getPathWeb
-	}
+	_public.get=function(_urlService,_parameters,callback){
+		var _url= _public.getPath()+_urlService;
+		_private.httpGet(_url,callback);
+	};
+	
+	_private.httpGet=function(_url,callback){
+		$.ajax({
+			type:"GET",
+			url: _url,
+			contentType: "application/json; charset=utf-8",
+			dataType: _private._dataType,
+			data: { 
+				format: _private._dataFormat,
+			}, 
+			cache: false,
+			success: function(data) {
+	    		callback(data,null);
+			},
+			error: function(xhr, status, error) {
+		        console.log('error ',error);
+		        console.log('status ',status);
+		        console.log('xhr ',xhr);
+		        callback(null,error);
+	      }
+	    });
+	};
+	
+	return _public.__construct.apply(this, arguments);
 }; 
 

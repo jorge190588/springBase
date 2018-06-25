@@ -65,10 +65,8 @@
 	<jsp:include page="../template/footer.jsp" />
 	<jsp:include page="../template/jsScripts.jsp" />
 
-	<script src="assets/js/general/listComponent.js"></script>
-	<script src="assets/js/general/navOptions.js"></script>
-	<script src="assets/js/general/formValidations.js"></script>
-	<script src="assets/js/general/formValues.js"></script>
+	<script src="assets/js/general/crud/listComponent.js"></script>
+	<script src="assets/js/general/crud/navOptions.js"></script>
 	<script src="assets/js/general/crud/form.js"></script>
 	<script src="assets/js/student/index.js"></script>
 	
