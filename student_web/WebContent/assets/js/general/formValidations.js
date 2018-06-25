@@ -2,139 +2,178 @@
  * Jorge Salvador Santos Neill
  * 12/06/2018
  */
-var FormValidations = (function(){
-	var _formName="",
-	_formElement=null;
-	_errorMessageElement=null,
-	_successMessageElement=null,
-	_callbackValidationResponse=null,
-	_saveButton=null;
+var FormValidations = function(){
+	var pr = {}, // Private Scope
+    PU = {}; // Public Scope
 	
-	function init (formName,_callback){
-		_callbackValidationResponse=_callback,
-		_formName= formName;
-		setFormElement();
-		setErrorMessageElement();
-		setSuccessMessageElement();
-		setSaveButtonElement();
-		hideSuccessMessage();
-		hideErrorMessage();
-		setValidationEvent();
-	}
-	 
-	function setFormElement(){
-		var elements = document.getElementsByClassName("form-"+_formName);
+	pr._formName="",
+	pr._formElement=null;
+	pr._modalElement=null;
+	pr._errorMessageElement=null,
+	pr._successMessageElement=null,
+	pr._callbackValidationResponse=null,
+	pr._saveButton=null;
+	
+	PU.init =function(formName,_callback){
+		pr._callbackValidationResponse=_callback,
+		pr.setFormName(formName);
+		pr.setFormElement();
+		pr.setModalElement();
+		PU.setErrorMessageElement();
+		PU.setSuccessMessageElement();
+		pr.setSaveButtonElement();
+		pr.hideSuccessMessage();
+		pr.hideErrorMessage();
+		pr.setValidationEvent();
+		return PU;
+	};
+	
+	pr.setModalElement=function(){
+		pr._modalElement = $("#form-"+pr._formName);
+	};
+	
+	pr.getModalElement=function(){
+		return pr._modalElement;
+	};
+	
+	pr.setFormName=function(formName){
+		pr._formName=formName;
+	};
+	
+	pr.setFormElement=function(){
+		var elements = document.getElementsByClassName("form-"+pr._formName);
 		if (elements==null) return ;
 		if (elements.length==0) return;
-		_formElement = elements[0];
-	}
+		pr._formElement = elements[0];
+	};
 	
-	function setSaveButtonElement(){
-		var elements = $("#form-"+_formName).find("div [class='modal-footer'] > button[id='save']");
+	pr.getFormElement=function(){
+		return pr._formElement;
+	};
+	
+	pr.setSaveButtonElement=function(){
+		var elements = $("#form-"+pr._formName).find("div [class='modal-footer'] > button[id='save']");
 		if (elements==null) return ;
 		if (elements.length==0) return;
-		_saveButton = elements[0];
-	}
-	function disabledSaveButton(){
-		_saveButton.setAttribute("disabled","true");
-	}
-	function enabledSaveButton(){
-		_saveButton.removeAttribute("disabled");
-	}
-	function setValidationEvent(){
-		if (_formElement==null) return;
-		_saveButton.addEventListener('click', function(event) {
-	        _formElement.classList.add('was-validated');
-	        if (_formElement.checkValidity() === false) {
-	        	_callbackValidationResponse(false);
+		pr._saveButton = elements[0];
+	};
+	
+	pr.disabledSaveButton=function(){
+		pr._saveButton.setAttribute("disabled","true");
+	};
+	
+	pr.enabledSaveButton=function(){
+		pr._saveButton.removeAttribute("disabled");
+	};
+	
+	pr.setValidationEvent=function(){
+		var formElement = pr.getFormElement();
+		if (formElement==null) return;
+		pr._saveButton.addEventListener('click', function(event) {
+			formElement.classList.add('was-validated');
+	        if (formElement.checkValidity() === false) {
+	        	pr._callbackValidationResponse(false);
 	        }else{
-	        	_callbackValidationResponse(true);
+	        	pr._callbackValidationResponse(true);
 	        }
 	        event.preventDefault();
 	        event.stopPropagation();
 	      }, false);
-	}
+	};
+	PU.setErrorMessageElement=function(){
+		var formElement =  pr.getFormElement();
+		var elements = $(formElement.parentElement.parentElement).find("#wrong_message")
+		if (elements==null) return ;
+		if (elements.length==0) return;
+		pr._errorMessageElement= elements[0];
+	};
 	
-	function setErrorMessageElement(){
-		var elements = $(_formElement.parentElement.parentElement).find("#wrong_message")
+	PU.setSuccessMessageElement=function(){
+		var formElement =  pr.getFormElement();
+		var elements = $(formElement.parentElement.parentElement).find("#success_message")
 		if (elements==null) return ;
 		if (elements.length==0) return;
-		_errorMessageElement= elements[0];
-	}
-	function setSuccessMessageElement(){
-		var elements = $(_formElement.parentElement.parentElement).find("#success_message")
-		if (elements==null) return ;
-		if (elements.length==0) return;
-		_successMessageElement = elements[0];
-	}
-	function hideElement(_element){
+		pr._successMessageElement = elements[0];
+	};
+	
+	pr.hideElement=function(_element){
 		$(_element).css('display','none');
-	}
-	function showElement(_element){
+	};
+	
+	pr.showElement=function(_element){
 		$(_element).css('display','');
-	}
-	function showErrorMessage(){
-		showElement(_errorMessageElement);
-	}
-	function hideErrorMessage(){
-		hideElement(_errorMessageElement);
-	}
-	function showSuccessMessage(){
-		showElement(_successMessageElement);
-	}
-	function hideSuccessMessage(){
-		hideElement(_successMessageElement);
-	}
-	function setTextToElement(_element,_text){
+	};
+	
+	pr.showErrorMessage=function(){
+		showElement(pr._errorMessageElement);
+	};
+	
+	pr.hideErrorMessage=function(){
+		pr.hideElement(pr._errorMessageElement);
+	};
+	
+	pr.showSuccessMessage=function(){
+		pr.showElement(pr._successMessageElement);
+	};
+	
+	pr.hideSuccessMessage=function(){
+		pr.hideElement(pr._successMessageElement);
+	};
+	
+	pr.setTextToElement=function(_element,_text){
 		_element.innerHTML=_text;
-	}
-	function setTextToSuccessElement(_text){
-		setTextToElement(_successMessageElement,_text);
-	}
-	function setTextToErrorElement(_text){
-		setTextToElement(_errorMessageElement,_text);
-	}
-	function setErrorMessage(_message){
-		hideSuccessMessage();
-		showErrorMessage();
-		setTextToErrorElement(_message);
-	}
-	function setSuccessMessage(_message){
-		hideErrorMessage();
-		showSuccessMessage();
-		setTextToSuccessElement(_message);
-	}
-	function resetForm(callback){
-		disabledSaveButton();
+	};
+	
+	pr.setTextToSuccessElement=function(_text){
+		pr.setTextToElement(pr._successMessageElement,_text);
+	};
+	
+	pr.setTextToErrorElement=function(_text){
+		pr.setTextToElement(pr._errorMessageElement,_text);
+	};
+	
+	PU.setErrorMessage=function(_message){
+		pr.hideSuccessMessage();
+		pr.showErrorMessage();
+		pr.setTextToErrorElement(_message);
+	};
+	
+	PU.setSuccessMessage=function(_message){
+		pr.hideErrorMessage();
+		pr.showSuccessMessage();
+		pr.setTextToSuccessElement(_message);
+	};
+	
+	PU.resetForm=function(callback){
+		pr.disabledSaveButton();
+	
 		setTimeout(function(){
-			$("#form-"+_formName).modal('hide');
-			_formElement.classList.remove('was-validated');
-			enabledSaveButton();
-			hideSuccessMessage();
-			hideErrorMessage();
+			$(pr._modalElement).modal('hide');
+			pr._formElement.classList.remove('was-validated');
+			pr.enabledSaveButton();
+			pr.hideSuccessMessage();
+			pr.hideErrorMessage();
 			callback();
 		},1500);
-	}
-	function showForm(){
-		$("#form-"+_formName).modal('show');
-	}
-	
-	function getFormName(){
-		return _formName
-	}
-	function getCallback(){
-		return _callbackValidationResponse;
-	}
-	
-	return {
-		init:init,
-		setErrorMessage:setErrorMessage,
-		setSuccessMessage:setSuccessMessage,
-		resetForm:resetForm,
-		showForm:showForm,
-		getFormName:getFormName,
-		getCallback:getCallback
 	};
-}()); 
+	
+	PU.showForm=function(){
+		var modalElement= pr.getModalElement();
+		$(modalElement).modal('show');
+	};
+	
+	PU.getFormName=function(){
+		return pr._formName
+	};
+	
+	PU.getCallback=function(){
+		return pr._callbackValidationResponse;
+	};
+	
+	PU.__construct = function() {
+		return PU;
+	}
+	return PU.__construct.apply(this, arguments);
+}; 
 
  

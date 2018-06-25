@@ -2,20 +2,18 @@
  * Jorge Salvador Santos Neill
  * 12/06/2018
  */
-
-var StudentModule = function () {
+var StudentModule = function(){
 	var _moduleName='student',
-	formValidations_create = FormValidations(),
-	formValidations_update = FormValidations(),
-	formValidations_delete = FormValidations(), 
-	formValues_create = FormValues(),
-	formValues_update = FormValues(),
-	formValues_delete = FormValues(),
+	formValidations_create = new FormValidations(),
+	formValidations_update = new FormValidations(),
+	formValidations_delete = new FormValidations(), 
+	formValues_create = new FormValues(),
+	formValues_update = new FormValues(),
+	formValues_delete = new FormValues(),
 	api= Api(),
 	listComponent= ListComponent(),
-	navOptions= NavOptions();
-	
-	function init(){
+	navOptions= NavOptions(),
+	init=function(){
 		api.init();
 		
 		listComponent.init(_moduleName);
@@ -32,9 +30,11 @@ var StudentModule = function () {
 		
 		formValues_delete.init("delete");
 		formValidations_delete.init("delete",deleteSave);
+		
 	}
 	
-	function saveRow(isValidValuesInForm){
+	saveRow=function(isValidValuesInForm){
+		
 		if (isValidValuesInForm==false) return;
 		
 		var _data = formValues_create.getElements();
@@ -58,14 +58,16 @@ var StudentModule = function () {
 			}
 				
 		})
-	}
-	function updateRow(id){
+	},
+	updateRow=function(id){
+		
 		api.getApi('student/findbyid/'+id,null,function(response,error){
 			formValues_update.setValueToElements(response._data[0]);
 			formValidations_update.showForm();
 		});
-	}
-	function updateSave(isValidValuesInForm){
+	},
+	updateSave=function(isValidValuesInForm){
+		
 		if (isValidValuesInForm==false) return;
 		
 		var _data = formValues_update.getElements();
@@ -89,11 +91,8 @@ var StudentModule = function () {
 			}
 				
 		})
-	}
-	function deleteRow(_id){
-		
-		var _data = formValues_delete.getElements();
-		
+	},
+	deleteRow=function(_id){
 		var message = formValues_delete.getElementById("message");
 		if (message!=null){
 			messageText = message.getAttribute("value");
@@ -106,9 +105,8 @@ var StudentModule = function () {
 			/*TODO: error*/
 			console.log("message doesnt exists")
 		}
-	}
-	
-	function deleteSave(isValidValuesInForm){
+	},
+	deleteSave=function(isValidValuesInForm){
 		if (isValidValuesInForm==false) return;
 		var _data = formValues_delete.getElements();
 		api.postApi('student/delete/'+_data.id,null,function(response,error){
@@ -123,7 +121,7 @@ var StudentModule = function () {
 			}
 		});
 		
-	}
+	};
 	
 	return {
 		init:init
