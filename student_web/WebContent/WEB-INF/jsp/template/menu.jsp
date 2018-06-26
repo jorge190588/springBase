@@ -1,3 +1,11 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:url value="/logout" var="logoutUrl" />
+	<form id="logout" action="${logoutUrl}" method="post" >
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	</form>
+	
 <div class="box-shadow">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 		<a class="navbar-brand" href=".">
@@ -56,7 +64,10 @@
 	    
 	    <ul class="nav navbar-nav">
 			<li class="nav-item">
-	        	<a class="nav-link" href="#"><i class="fas fa-sign-out-alt"></i> Cerrar session</a>
+			<c:if test="${pageContext.request.userPrincipal.name != null}">
+				<a class="nav-link" href="javascript:document.getElementById('logout').submit()"><i class="fas fa-sign-out-alt"></i> Cerrar session</a>
+			</c:if>
+	        
 	      	</li>
 		</ul>
 	            
