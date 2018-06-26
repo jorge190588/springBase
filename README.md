@@ -219,3 +219,12 @@ It issue is fixed when 'generator class' proporty is changed in {entiti}.hbm.xml
 ## Execute generic methods in generic class in java
 
 * [How do I invoke a Java method when given the method name as a string?](https://stackoverflow.com/questions/160970/how-do-i-invoke-a-java-method-when-given-the-method-name-as-a-string)
+
+
+# JAVASCRIPT
+
+* [Revealing module pattern](https://codereview.stackexchange.com/questions/7242/more-revealing-module-patter-in-javascript)
+
+# Regex
+
+* [Regex validator online](https://regexr.com/)
