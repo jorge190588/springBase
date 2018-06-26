@@ -3,5 +3,5 @@
 <div id="listComponent">
 	
 	<jsp:include page="listData.jsp" />
-	<jsp:include page="../template/pagination.jsp" />
+	<jsp:include page="../template/crud/pagination.jsp" />
 </div>
