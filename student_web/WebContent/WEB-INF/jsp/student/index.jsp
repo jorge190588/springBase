@@ -64,11 +64,11 @@
 	<!-- Template footer -->
 	<jsp:include page="../template/footer.jsp" />
 	<jsp:include page="../template/jsScripts.jsp" />
-
-	<script src="assets/js/general/crud/listComponent.js"></script>
-	<script src="assets/js/general/crud/navOptions.js"></script>
-	<script src="assets/js/general/crud/form.js"></script>
-	<script src="assets/js/student/index.js"></script>
+	
+	<script src="${pageContext.request.contextPath}/assets/js/general/crud/listComponent.js" type="text/javascript"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/general/crud/navOptions.js" type="text/javascript"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/general/crud/form.js" type="text/javascript"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/student/index.js" type="text/javascript"></script>
 	
 </body>
 </html>
