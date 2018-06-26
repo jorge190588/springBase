@@ -9,4 +9,5 @@
   <table-filter match-catalog="RandomStudent" match-schema="dbo" match-name="quizDetail"/>
   <table-filter match-catalog="RandomStudent" match-schema="dbo" match-name="student"/>
   <table-filter match-catalog="RandomStudent" match-schema="dbo" match-name="teacher"/>
+  <table-filter match-catalog="RandomStudent" match-schema="dbo" match-name="users"/>
 </hibernate-reverse-engineering>

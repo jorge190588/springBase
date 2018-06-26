@@ -1,8 +1,6 @@
 package tools;
 
 import java.util.List;
-
-import entities.Student;
 import error.CustomException;
 import error.ErrorFormat;
 import generic.GenericClass;

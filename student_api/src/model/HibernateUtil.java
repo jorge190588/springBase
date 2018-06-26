@@ -32,7 +32,8 @@ public class HibernateUtil {
     		 .build();
     		 
     		 Metadata metadata = new MetadataSources( standardRegistry )
-    		 .addAnnotatedClass(Student.class ) 
+    		 .addAnnotatedClass(Student.class )
+    		 .addAnnotatedClass(Users.class ) 
     		 // You can add more entity classes here like above
     		 .addResource( "entities/Student.hbm.xml" )
     		 .addResource( "entities/Teacher.hbm.xml" )
@@ -41,6 +42,7 @@ public class HibernateUtil {
     		 .addResource( "entities/Element.hbm.xml" )
     		 .addResource( "entities/ElementType.hbm.xml" )
     		 .addResource( "entities/Entiti.hbm.xml" )
+    		 .addResource( "entities/Users.hbm.xml" )
     		 .getMetadataBuilder()
     		 .applyImplicitNamingStrategy(ImplicitNamingStrategyJpaCompliantImpl.INSTANCE )
     		 .build();
@@ -94,6 +96,7 @@ public class HibernateUtil {
             configuration.addAnnotatedClass(QuizDetail.class);
             configuration.addAnnotatedClass(Student.class);
             configuration.addAnnotatedClass(Teacher.class);
+            configuration.addAnnotatedClass(Users.class);
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
             SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);

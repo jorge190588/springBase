@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jun 22, 2018 2:03:49 PM by Hibernate Tools 5.1.0.Alpha1 -->
+<!-- Generated Jun 26, 2018 9:30:40 AM by Hibernate Tools 5.1.0.Alpha1 -->
 <hibernate-mapping>
     <class name="entities.Entiti" table="entiti" optimistic-lock="version">
         <id name="id" type="int">

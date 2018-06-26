@@ -19,6 +19,7 @@ public class ApplicationConfig extends Application {
 			resources.add(ws.StudentRest.class);
 			resources.add(ws.ElementRest.class);
 			resources.add(ws.EntitiRest.class);
+			resources.add(ws.UserRest.class);
 		}catch(Exception exception){
 			throw new ExceptionInInitializerError(exception); 
 		}			
