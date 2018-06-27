@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.log4j.spi.ErrorCode;
-
 /**
  * @author jorge
  *

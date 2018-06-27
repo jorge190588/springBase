@@ -3,16 +3,16 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Jun 26, 2018 5:31:58 PM by Hibernate Tools 5.1.0.Alpha1 -->
 <hibernate-mapping>
-    <class name="entities.Teacher" table="teacher" optimistic-lock="version">
+    <class name="entities.Module" table="module" optimistic-lock="version">
         <id name="id" type="int">
             <column name="id" />
             <generator class="native" />
         </id>
-        <property name="name" type="string">
-            <column name="name" length="50" not-null="true" />
+        <property name="name" type="int">
+            <column name="name" not-null="true" />
         </property>
-        <property name="code" type="string">
-            <column name="code" length="50" not-null="true" />
+        <property name="users" type="int">
+            <column name="users" not-null="true" />
         </property>
         <property name="createdAt" type="timestamp">
             <column name="created_at" length="23" />
@@ -20,11 +20,11 @@
         <property name="updatedAt" type="timestamp">
             <column name="updated_at" length="23" />
         </property>
-        <set name="quizs" table="quiz" inverse="true" lazy="true" fetch="select">
+        <set name="forms" table="form" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="teacher" not-null="true" />
+                <column name="module" not-null="true" />
             </key>
-            <one-to-many class="entities.Quiz" />
+            <one-to-many class="entities.Form" />
         </set>
     </class>
 </hibernate-mapping>

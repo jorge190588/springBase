@@ -43,6 +43,9 @@ public class HibernateUtil {
     		 .addResource( "entities/ElementType.hbm.xml" )
     		 .addResource( "entities/Entiti.hbm.xml" )
     		 .addResource( "entities/Users.hbm.xml" )
+    		 .addResource( "entities/Form.hbm.xml" )
+    		 .addResource( "entities/Roles.hbm.xml" )
+    		 .addResource( "entities/Module.hbm.xml" )
     		 .getMetadataBuilder()
     		 .applyImplicitNamingStrategy(ImplicitNamingStrategyJpaCompliantImpl.INSTANCE )
     		 .build();
