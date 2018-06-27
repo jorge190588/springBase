@@ -33,7 +33,7 @@ public class GenericClass<T> {
 			genericMethod.setMethod();	
 			if (genericMethod.getIsError()==true){
 				this.setIsError(true);
-				this.setMethodName(genericMethod.getErrorMessage());
+				this.setErrorMessage(genericMethod.getErrorMessage());
 				return;
 			}
 			Method method = genericMethod.getMethod();

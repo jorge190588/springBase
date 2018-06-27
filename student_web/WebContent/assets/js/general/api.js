@@ -60,7 +60,7 @@ var ApiModule = function () {
 	    		callback(data,null);
 			},
 			error: function(xhr, status, error) {
-		        console.log('error ',error);
+				console.log('error ',error);
 		        console.log('status ',status);
 		        console.log('xhr ',xhr);
 		        callback(null,error);
@@ -70,24 +70,23 @@ var ApiModule = function () {
 	
 	_public.get=function(_urlService,_parameters,callback){
 		var _url= _public.getPath()+_urlService;
-		_private.httpGet(_url,callback);
+		_private.httpGet(_url,callback,_parameters);
 	};
 	
-	_private.httpGet=function(_url,callback){
+	_private.httpGet=function(_url,callback,_parameters){
+	 
 		$.ajax({
 			type:"GET",
 			url: _url,
 			contentType: "application/json; charset=utf-8",
 			dataType: _private._dataType,
-			data: { 
-				format: _private._dataFormat,
-			}, 
+			data: _parameters, 
 			cache: false,
 			success: function(data) {
 	    		callback(data,null);
 			},
 			error: function(xhr, status, error) {
-		        console.log('error ',error);
+				console.log('error ',error);
 		        console.log('status ',status);
 		        console.log('xhr ',xhr);
 		        callback(null,error);

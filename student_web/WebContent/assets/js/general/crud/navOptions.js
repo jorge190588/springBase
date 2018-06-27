@@ -30,7 +30,7 @@ var NavOptions =  function () {
 		if (findedElements.length==0){
 			console.log(optionId,' doent exists');
 			return ;
-		}/*TODO if is false then send to error logs*/
+		}/*TODO if is false then send to com.student.error logs*/
 		_private.addClickEventOptionToEvent(findedElements[0],openMethod,optionId);
 		
 		setTimeout(function(){ 

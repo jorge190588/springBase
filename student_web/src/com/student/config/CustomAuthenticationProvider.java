@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -27,12 +28,15 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	    userRestClient.findBy("name", name);
 		RestResponse response = userRestClient.getResponse() ;
 		List<Users> userlist = (List<Users>) response.get_data();
+		if (userlist.size()==0) throw new BadCredentialsException("Usuario y clave incorrectos");
 		Users user = new Users(userlist.get(0));
+		
+		if (user.getIsEnabled()==false)throw new BadCredentialsException("Usuario inactivo");
 		
         if (name.equals(user.getName()) && BCrypt.checkpw(password, user.getPassword())) {
             return new UsernamePasswordAuthenticationToken(name, password, new ArrayList<>());
         } else {
-            return null;
+        	throw new BadCredentialsException("Usuario y clave incorrectos");
         }
 
 	 }

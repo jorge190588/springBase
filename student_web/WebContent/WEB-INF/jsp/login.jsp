@@ -26,11 +26,11 @@
 	                	<input type="password" name="password"  id="password" class="form-control" placeholder="Ingrese su clave" required>
 	                	
 		                <div class="row justify-content-md-center">
-				            <c:if test="${not empty error}">
+				            <c:if test="${not empty com.student.error}">
 			                    <div class="form-control-feedback">
-			                        <span class="text-danger align-middle">
-			            				${error}             
-			                        </span>
+			                        <p class="text-danger text-center">
+			            				${com.student.error}             
+			                        </p>
 			                    </div>
 				            </c:if>
 						</div>

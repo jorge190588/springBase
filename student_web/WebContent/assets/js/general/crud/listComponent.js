@@ -57,7 +57,7 @@ var ListComponent = function () {
 	};
 	
 	_private.getDataFromWebService=function(url){
-		_private.apiFront.get(url,null,function(data,error){
+		 _private.apiFront.get(url,null,function(data,error){
 			if (data!=null)
 				_private.setDataInView(data);
 				_private.setUpdateEvent();

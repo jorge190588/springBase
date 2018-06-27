@@ -9,7 +9,7 @@ var StudentModule =  function(){
 	_private.form_create = new FormModule(),
 	_private.form_update = new FormModule(),
 	_private.form_delete = new FormModule(),
-	_private.apiBack  = new ApiModule('/student_api/rest/'),
+	_private.apiFront	 = new ApiModule('/student_web/')
 	_private.listComponent= new ListComponent(_private._moduleName),
 	_private.navOptions= new NavOptions();
 
@@ -33,14 +33,12 @@ var StudentModule =  function(){
 	
 	_private.saveRow=function(){
 		if (_private.form_create.validations.isFormValid()==false) return;
-		var _data = _private.form_create.values.getValues();
-		var _params = JSON.stringify(_data);
+		var _params = _private.form_create.values.getValues();
 		_private.form_create.saveButton.disabled();
-		_private.apiBack.post('student/create',_params,function(response,error){
+		_private.apiFront.get('student/create',_params,function(response,error){
 			if (response){
-				if(response._error!=null){
-					_private.form_create.error(response._error._message);
-				}else{
+				if(response._error!=null) _private.form_create.error(response._error._message);
+				else{
 					_private.form_create.success("Registro creado",function(){
 						_private.listComponent.updatePage();
 					});
@@ -50,8 +48,8 @@ var StudentModule =  function(){
 		});
 	};
 	
-	_private.updateRow=function(id){
-		_private.apiBack.get('student/findbyid/'+id,null,function(response,error){
+	_private.updateRow=function(_id){
+		_private.apiFront.get('student/findby',{id:_id},function(response,error){
 			_private.form_update.values.setValues(response._data[0]);
 			_private.form_update.showModal();
 		});
@@ -59,12 +57,11 @@ var StudentModule =  function(){
 	
 	_private.updateSave=function(isValidValuesInForm){
 		if (_private.form_update.validations.isFormValid()==false) return;
-		var _data = _private.form_update.values.getValues();
-		var _params = JSON.stringify(_data);
+		var _params = _private.form_update.values.getValues();
 		_private.form_update.saveButton.disabled();
-		_private.apiBack.post('student/update',_params,function(response,error){
+		_private.apiFront.get('student/update',_params,function(response,error){
 			if (response){
-				if(response._error!=null) form_update.error(response._error._message);
+				if(response._error!=null) _private.form_update.error(response._error._message);
 				else{
 					_private.form_update.success("Registro actualizado",function(){
 						_private.listComponent.updatePage();
@@ -93,8 +90,9 @@ var StudentModule =  function(){
 	_private.deleteSave=function(isValidValuesInForm){
 		if (_private.form_delete.validations.isFormValid()==false) return;
 		var _data = _private.form_delete.values.getValues();
+		
 		_private.form_delete.saveButton.disabled();
-		_private.apiBack.post('student/delete/'+_data.id,null,function(response,error){
+		_private.apiFront.get('student/delete',{id:_data.id},function(response,error){
 			if (response){
 				if(response._error!=null) _private.form_delete.error(response._error._message);
 				else{

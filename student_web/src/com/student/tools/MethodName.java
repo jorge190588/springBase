@@ -8,7 +8,7 @@ public enum MethodName {
 	
 	update(300,"update"),
 	
-	delete(400,"delete/{0}"),
+	delete(400,"delete"),
 	
 	page(500,"page"),;
 	

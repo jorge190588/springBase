@@ -10,7 +10,7 @@
 		<th>Updated at</th>
 		<th>Options</th>
 	</tr>
-	<c:forEach var="student" items="${listStudents}">
+	<c:forEach var="student" items="${listData}">
 		<tr>
 			<td>${student.id }</td>
 			<td>${student.firstName }</td>
