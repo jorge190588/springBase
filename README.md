@@ -221,10 +221,8 @@ It issue is fixed when 'generator class' proporty is changed in {entiti}.hbm.xml
 * [How do I invoke a Java method when given the method name as a string?](https://stackoverflow.com/questions/160970/how-do-i-invoke-a-java-method-when-given-the-method-name-as-a-string)
 
 
-# JAVASCRIPT
+# References
 
 * [Revealing module pattern](https://codereview.stackexchange.com/questions/7242/more-revealing-module-patter-in-javascript)
-
-# Regex
-
 * [Regex validator online](https://regexr.com/)
+* [How to Choose a Technology Stack for Web Application Development](https://rubygarage.org/blog/technology-stack-for-web-development)
