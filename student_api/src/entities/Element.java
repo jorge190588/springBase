@@ -1,5 +1,5 @@
 package entities;
-// Generated Jun 26, 2018 5:31:58 PM by Hibernate Tools 5.1.0.Alpha1
+// Generated Jun 29, 2018 4:24:12 PM by Hibernate Tools 5.1.0.Alpha1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -79,18 +79,18 @@ public class Element implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "elementTypeId", nullable = false)
+	@JoinColumn(name = "elementType", nullable = false)
 	public ElementType getElementType() {
 		return this.elementType;
 	}
 
 	public void setElementType(ElementType elementType) {
-		elementType.setElements(null);
+		 elementType.setElements(null);
 		this.elementType = elementType;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "entitiId", nullable = false)
+	@JoinColumn(name = "entiti", nullable = false)
 	public Entiti getEntiti() {
 		return this.entiti;
 	}
@@ -136,7 +136,7 @@ public class Element implements java.io.Serializable {
 		this.isUnique = isUnique;
 	}
 
-	@Column(name = "pattern", length = 100)
+	@Column(name = "pattern", length = 300)
 	public String getPattern() {
 		return this.pattern;
 	}
