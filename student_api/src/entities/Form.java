@@ -70,7 +70,12 @@ public class Form implements java.io.Serializable {
 	}
 
 	public void setModule(Module module) {
+		module.setForms(null);
 		this.module = module;
+	}
+	
+	public void setModule(Object module) {
+		this.module = (Module) module;
 	}
 
 	@Column(name = "name", nullable = false, length = 100)

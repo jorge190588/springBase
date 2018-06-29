@@ -95,8 +95,6 @@ public class Users implements java.io.Serializable {
 	public Roles getRoles() {
 		return this.roles;
 	}
-
-	 
 	
 	public void setRoles(Roles roles) {
 		this.roles = roles;

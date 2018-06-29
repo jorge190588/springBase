@@ -59,6 +59,7 @@
 	          		<a class="dropdown-item" href="user"><i class="fa fa-user fa-sm"></i> Usuarios</a>
 	          		<a class="dropdown-item" href="rol"><i class="fa fa-users fa-sm"></i> Roles</a>
 	          		<a class="dropdown-item" href="module"><i class="fa fa-users fa-sm"></i> Modulo</a>
+	          		<a class="dropdown-item" href="form"><i class="fa fa-users fa-sm"></i> Formulario</a>
 	        	</div>
 	      	</li>      
 		</ul>

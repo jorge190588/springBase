@@ -32,6 +32,7 @@ public class Module implements java.io.Serializable {
 	}
 	
 	
+	@SuppressWarnings("rawtypes")
 	public Module(Object object){
 		LinkedHashMap objectMap = (LinkedHashMap)object;
 		this.id = (int) objectMap.get("id");
