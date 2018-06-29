@@ -30,6 +30,8 @@ public class GenericMethod<T> {
 				method = genericClass.getClass().getMethod(this.name,int.class);
 			}else if (param instanceof String){
 				method = genericClass.getClass().getMethod(this.name,String.class);
+			}else if (param instanceof Boolean){
+				method = genericClass.getClass().getMethod(this.name,Boolean.class);	
 			}else if (param instanceof Date){
 				method = genericClass.getClass().getMethod(this.name,Date.class);	
 			}else if (param instanceof Object[]){

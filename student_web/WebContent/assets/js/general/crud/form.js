@@ -23,18 +23,23 @@ var FormModule = function(){
 		_private.setFormName(formName);
 		_private.setFormElement();
 		_private.setModalElement();
-		_public.saveButton=new ButtonModule('save',_private._modalElement);
+		_public.saveButton=new ButtonModule('save',_private._modalElement,_private._formName);
 		_public.validations = new ValidationsModule(_private._formElement);
-		_public.values = new ValuesModule(_private._formElement);
-		_public.wrongMessage = new MessageModule('wrong_message',_private._formElement);
-		_public.successMessage = new MessageModule('success_message',_private._formElement);
+		_public.values = new ValuesModule(_private._formElement,_private._formName);
+		_public.wrongMessage = new MessageModule('wrong_message',_private._formElement,_private._formName);
+		_public.successMessage = new MessageModule('success_message',_private._formElement,_private._formName);
 		_public.wrongMessage.hide();
 		_public.successMessage.hide();
+		_private.addDropdown();
 	};
 	
 	_private.setFormName=function(formName){
 		_private._formName=formName;
 	};
+	
+	_public.getFormName=function(){
+		return _private._formName;
+	}
 	
 	_private.setModalElement=function(){
 		var elements= $("#form-"+_private._formName);
@@ -76,20 +81,31 @@ var FormModule = function(){
 		_public.saveButton.enabled();
 	};
 	
+	_private.addDropdown=function(){
+		var elements= $(_private._formElement).find("select"),
+			id='';
+		for (var index=0; index< elements.length;  index++){
+			id = elements[index].id.replace(_private._formName+'-',"");
+			_public[id] = new DropdownModule(id,_private._formElement,_private._formName);
+		}
+	}
+	
 	return _public.__construct.apply(this, arguments);
 };
 
 var ValuesModule = function(){
 	var _private = {}, _public = {}; 
 	_private._formElement=null;
-	_private._elementTypes=["input","h3"];
-	_public.__construct = function(formElement) {
+	_private._elementTypes=["input","h3","checkbox","select"];
+	_private._formName="";
+	_public.__construct = function(formElement,formName) {
 		_private._formElement=formElement;
+		_private._formName=formName;
 		return _public;
 	};
 	
 	_private.getElementsFromFormByType=function(type){
-		return _private._formElement.getElementsByTagName(type);;
+		return _private._formElement.getElementsByTagName(type);
 	};
 	
 	_private.getElementsFromForm=function(type){
@@ -104,22 +120,44 @@ var ValuesModule = function(){
 		return result;
 	};
 	
+	 
 	_public.getValues=function(){
 		_private._elements={};
-		var elements = _private.getElementsFromForm();
+		var elements = _private.getElementsFromForm(),
+			id="";
+		
 		for (var index=0;index < elements.length; index++){
-			_private._elements[elements[index].id] = elements[index].value;
+			id = elements[index].id.replace(_private._formName+'-','');
+			if (elements[index].nodeName=='INPUT' && elements[index].type=='checkbox'){
+				_private._elements[id] = elements[index].checked;
+			}else if (elements[index].nodeName=='SELECT'){
+				var object = {};
+				object['id']=elements[index].options[elements[index].selectedIndex].value;
+				_private._elements[id] = object;
+			}else{
+				_private._elements[id] = elements[index].value;
+			}
+			
 		}
 		return _private._elements;
 	};
 	 
 	_public.setValues=function(params){
-		var elements = _private.getElementsFromForm();
+		var elements = _private.getElementsFromForm(),
+			id= "";
 		for (var index=0;index<elements.length; index++){
+			id =elements[index].id.replace(_private._formName+'-','');
+			
 			if (elements[index].nodeName=='INPUT'){
-				elements[index].value=params[elements[index].id];	
+				if (elements[index].type=='checkbox'){
+					elements[index].checked=params[id];	
+				}else{
+					elements[index].value=params[id];	
+				}
 			}else if(elements[index].nodeName=='H3'){
-				elements[index].textContent=params[elements[index].id];
+				elements[index].textContent=params[id];
+			}else if (elements[index].nodeName=='SELECT'){
+				document.getElementById(elements[index].id).value=params[id].id;
 			}
 		}
 	};
@@ -162,17 +200,19 @@ var ButtonModule = function(){
 	_private._modalElement=null,
 	_private._callback=null,
 	_private._id=null,
-	_private._button=null;
+	_private._button=null,
+	_private._formName=null;
 	
-	_public.__construct = function(id,modalElement) {
+	_public.__construct = function(id,modalElement,formName) {
 		_private._id=id;
 		_private._modalElement=modalElement;
+		_private._formName=formName;
 		_private.setButtonElement();
 		return _public;
 	}
 	
 	_private.setButtonElement=function(){
-		var elements = $(_private._modalElement).find("div [class='modal-footer'] > button[id='"+_private._id+"']");
+		var elements = $(_private._modalElement).find("div [class='modal-footer'] > button[id='"+_private._formName+"-"+_private._id+"']");
 		if (elements==null) return ;
 		if (elements.length==0) return;
 		_private._button = elements[0];	
@@ -202,17 +242,19 @@ var MessageModule = function(){
 	var _private = {}, _public = {}; 
 	_private._formElement=null,
 	_private._id=null;
-	_private._element=null;
+	_private._element=null,
+	_private._formName=null;
 	
-	_public.__construct = function(id,formElement) {
+	_public.__construct = function(id,formElement,formName) {
 		_private._id=id;
 		_private._formElement=formElement;
+		_private._formName=formName;
 		_private.setElement();
 		return _public;
 	};
 	
 	_private.setElement=function(){
-		var elements = $(_private._formElement.parentElement.parentElement).find("#"+_private._id);
+		var elements = $(_private._formElement.parentElement.parentElement).find("#"+_private._formName+"-"+_private._id)
 		if (elements==null) return ;
 		if (elements.length==0) return;
 		_private._element= elements[0];
@@ -228,3 +270,54 @@ var MessageModule = function(){
 	};
 	return _public.__construct.apply(this, arguments);
 };
+
+var DropdownModule = function(){
+	var _private = {}, _public = {}; 
+	_private._formElement=null,
+	_private._formName=null,
+	_private._id=null;
+	_private._element=null;
+	_private._callback=null,
+	
+	_public.__construct = function(id,formElement,formName) {
+		_private._id=id;
+		_private._formElement=formElement;
+		_private._formName=formName;
+		_private.setElement();
+		return _public;
+	};
+	
+	_public.setCallback=function(callback){
+		_private._callback = callback;
+	}
+	
+	_private.setElement=function(){
+		var elements = $(_private._formElement.parentElement.parentElement).find("#"+_private._formName+"-"+_private._id)
+		if (elements==null) return ;
+		if (elements.length==0) return;
+		_private._element= elements[0];
+	};
+	
+	_public.fill=function(data,id,name){
+		$(_private._element).empty();
+		
+		var option = document.createElement('option');
+        option.text	= "Seleccione una opcion"; 
+    	option.value= "";
+    	_private._element.add(option, 0);
+		for(var index=0; index<data.length; index++){
+			option = document.createElement('option');
+	        option.text	= data[index][name]; 
+        	option.value= data[index][id];
+	        _private._element.add(option, index+1);
+		};
+	}
+	
+	_private.setChangeEvent=function(){
+		if (_private._callback!=null){
+			callback();
+		}
+	}
+	
+	return _public.__construct.apply(this, arguments);
+}

@@ -65,7 +65,7 @@
 	<jsp:include page="../template/footer.jsp" />
 	<jsp:include page="../template/scripts.jsp" />
 	<jsp:include page="../template/crud/scripts.jsp" />
-	<script src="${pageContext.request.contextPath}/assets/js/student/index.js" type="text/javascript"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/user/index.js" type="text/javascript"></script>
 	
 </body>
 </html>

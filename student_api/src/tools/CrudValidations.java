@@ -156,7 +156,7 @@ public class CrudValidations {
 
 			response.set_data(genericClass.getResult());
 		}catch(Throwable exception){
-			CustomException ex=  new CustomException(exception.getMessage(),exception,error.ErrorCode.REST_UPDATE,this.getClass().getSimpleName());
+			CustomException ex=  new CustomException(exception.getCause().getMessage(),exception,error.ErrorCode.REST_UPDATE,this.getClass().getSimpleName());
 			ErrorFormat _errorFormat = new ErrorFormat(ex);
 			response.set_error(_errorFormat.get_errorResponse());
 		} 

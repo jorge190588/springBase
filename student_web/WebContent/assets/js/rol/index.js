@@ -5,7 +5,7 @@
 var Module =  function(){
 	var _private = {}, _public = {};
 	
-	_private._moduleName='student',
+	_private._moduleName='rol',
 	_private.form_create = new FormModule(),
 	_private.form_update = new FormModule(),
 	_private.form_delete = new FormModule(),
@@ -23,7 +23,7 @@ var Module =  function(){
 		_private.listComponent.setDeleteCallback(_private.deleteRow);
 		
 		_private.navOptions.addOption('create','Crear','fa-plus-square',_private.create);
-
+		_private.form_create.init("create");
 		_private.form_create.saveButton.setClickEvent(_private.saveRow);
 		_private.form_update.init("update");
 		_private.form_update.saveButton.setClickEvent(_private.updateSave);

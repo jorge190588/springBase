@@ -49,7 +49,7 @@ public class Api<T> {
 	public void get(){
 		try{		
 			ClientResponse clientResponse = 	getClientResponseOfGetMethod();
-			setResponse(clientResponse);
+			setResponseFromClient(clientResponse);
 		}catch(Exception exception){
 			System.out.println("exception in findAll students "+ exception);
 		}
@@ -58,7 +58,7 @@ public class Api<T> {
 	public void post(){
 		try{		
 			ClientResponse clientResponse = 	getClientResponseOfPostMethod();
-			setResponse(clientResponse);
+			setResponseFromClient(clientResponse);
 		}catch(Exception exception){
 			System.out.println("exception in findAll students "+ exception);
 		}
@@ -67,7 +67,7 @@ public class Api<T> {
 	public void delete(){
 		try{		
 			ClientResponse clientResponse = 	getClientResponseOfDeleteMethod();
-			setResponse(clientResponse);
+			setResponseFromClient(clientResponse);
 		}catch(Exception exception){
 			System.out.println("exception in findAll students "+ exception);
 		}
@@ -77,15 +77,18 @@ public class Api<T> {
 		return this._response;
 	} 
 	
+	public void setResponse(RestResponse response){
+		this._response=response;
+	}
 	
-	private void setResponse(ClientResponse clientResponse){
+	private void setResponseFromClient(ClientResponse clientResponse){
 		if (clientResponse== null) _response=null;
 		int statusCode = clientResponse.getStatus();
 		if (statusCode == 200) {
 			String output = clientResponse.getEntity(String.class);
 			ObjectMapper objectMapper = new ObjectMapper();
 			try {
-				this._response= objectMapper.readValue(output, RestResponse.class);
+				this.setResponse(objectMapper.readValue(output, RestResponse.class));
 			} catch (JsonParseException exception) {
 				System.out.println("exception in getResponse "+ exception);
 			} catch (JsonMappingException exception) {
@@ -98,7 +101,7 @@ public class Api<T> {
 			ErrorFormat _errorFormat = new ErrorFormat(exception);
 			RestResponse response = new RestResponse();
 			response.set_error(_errorFormat.get_errorResponse());
-			this._response=response;
+			this.setResponse(response);
 		}
 	}
 	

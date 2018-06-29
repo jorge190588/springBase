@@ -21,7 +21,7 @@ public class ApplicationConfig extends Application {
 			resources.add(ws.EntitiRest.class);
 			resources.add(ws.UserRest.class);
 			resources.add(ws.FormRest.class);
-			resources.add(ws.RoleRest.class);
+			resources.add(ws.RolRest.class);
 		}catch(Exception exception){
 			throw new ExceptionInInitializerError(exception); 
 		}			

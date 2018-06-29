@@ -17,23 +17,22 @@ import com.student.entities.Element;
 import com.student.tools.DataResponse;
 import com.student.tools.RestResponse;
 import com.student.ws.ElementRestClient;
-import com.student.ws.StudentRestClient;;
+import com.student.ws.*;
 
 @SuppressWarnings({"rawtypes","unchecked"})
 @Controller
-@RequestMapping("/student")
-public class StudentController<T>  {
-	private StudentRestClient restClient = new StudentRestClient();
+@RequestMapping("/rol")
+public class RolController<T>{
+	private RolRestClient restClient = new RolRestClient();
 	private ElementRestClient elementRestClient = new ElementRestClient();
-	private static String moduleName="student";
-	//private CrudController crud = new CrudController(studentRestClient);
+	private static String moduleName="rol";
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String index(ModelMap modelMap) {
 		List<Element> elementList = elementRestClient.getElementsByEntitiName(moduleName);
 		modelMap.put("elementList", elementList);
 		modelMap.put("ApplicationName", PageConfiguration.ApplicationName.get_title());
-		modelMap.put("pageTitle", "Student page");
+		modelMap.put("pageTitle", "Rol page");
 		modelMap.put("module",moduleName);
 		return moduleName+"/index";
 	}
@@ -73,8 +72,15 @@ public class StudentController<T>  {
 	
 	@RequestMapping(value = "findby", method = RequestMethod.GET,produces={"application/json","application/xml"})
 	@ResponseBody
-	public  String findbyid(@RequestParam Map<String, String> params) {
+	public  String findby(@RequestParam Map<String, String> params) {
 		restClient.findBy(params);
+		return restClient.getResponseString();
+	}
+	
+	@RequestMapping(value = "findall", method = RequestMethod.GET,produces={"application/json","application/xml"})
+	@ResponseBody
+	public  String findall() {
+		restClient.findAll();
 		return restClient.getResponseString();
 	}
 }

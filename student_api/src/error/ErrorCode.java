@@ -3,7 +3,7 @@ package error;
 public enum ErrorCode {
 	GENERIC_ERROR(100,"Generic exception has occurred"),
 	APPLICATION_CONFIG(101,"Error when configuring the application"),
-	
+	ENTITI(101,"Entiti name doesnt exist for the module"),
 	DATABASE_CONNECTION(200,"The connection to the database failed"),
 	DATABASE_TABLE(201,"The connection to the database failed"),
 	

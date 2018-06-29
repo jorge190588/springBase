@@ -11,8 +11,9 @@ public enum ErrorCode {
 	REST_FIND(300,"Find registers"),
 	REST_CREATE(301,"Create a registrer"),
 	REST_UPDATE(302,"Update a registrer"),
-	REST_DELETE(303,"Delete a registrer");
-	
+	REST_DELETE(303,"Delete a registrer"),
+	REST_PAGE(304,"Find page registers"),
+	REST_FINDBY(305,"Find by registers");
 	
 	private final int _code;
 	private final String _title;

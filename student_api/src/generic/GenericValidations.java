@@ -27,6 +27,8 @@ public class GenericValidations<T> {
 			List<Entiti> listEntiti = entitiModel.getAll("name='"+moduleName+"'");
 			if (listEntiti.size()>0){
 				this.entiti=listEntiti.get(0);
+			}else{
+				 throw new CustomException("Entiti "+this.moduleName+" doesnt exists",ErrorCode.ENTITI,this.getClass().getName(),Thread.currentThread().getStackTrace()[2].getLineNumber()); 
 			}
 		}
 	}
@@ -265,29 +267,34 @@ public class GenericValidations<T> {
 		GenericClass genericClass;
 		try{
 			for(Field param: _paramsClass.getClass().getDeclaredFields()){
+				
 				paramName=param.getName();
-				methodName="get"+capitalizeString(paramName);
-				genericClass= new GenericClass(_paramsClass,methodName);
-				genericClass.executeMethod();
-				if (genericClass.getIsError()==true){
-					this.setIsError(true); 
-					this.setErrorMessage(genericClass.getErrorMessage());
-					return;
-				}	
-				
-				paramValue = genericClass.getResult();
-				
-				if (paramName.equals("createdAt") || paramName.equals("id")){
-					System.out.println("param name (ommit): "+paramName+", value "+paramValue);
-				}else{
-					genericClass= new GenericClass(findedElement,"set"+capitalizeString(paramName),(T) paramValue);
+				if (!paramName.equals("format")){
+					methodName="get"+capitalizeString(paramName);
+					genericClass= new GenericClass(_paramsClass,methodName);
 					genericClass.executeMethod();
 					if (genericClass.getIsError()==true){
 						this.setIsError(true); 
 						this.setErrorMessage(genericClass.getErrorMessage());
 						return;
+					}	
+					
+					paramValue = genericClass.getResult();
+					
+					if (paramName.equals("createdAt") || paramName.equals("id")){
+						System.out.println("param name (ommit): "+paramName+", value "+paramValue);
+					}else{
+						genericClass= new GenericClass(findedElement,"set"+capitalizeString(paramName),(T) paramValue);
+						genericClass.executeMethod();
+						if (genericClass.getIsError()==true){
+							this.setIsError(true); 
+							this.setErrorMessage(genericClass.getErrorMessage());
+							return;
+						}
 					}
 				}
+				
+				
 			}
 		}catch(Exception exception){
 			this.setIsError(true);
@@ -297,6 +304,7 @@ public class GenericValidations<T> {
 	
 	// ------------------------   Start Created and Updated attributes -------------------------
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void setCreatedAtInElement(Object _class){
 		String setMethodName="setCreatedAt",getMethodName="getCreatedAt";
 		GenericClass genericClass;

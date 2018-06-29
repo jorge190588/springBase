@@ -71,9 +71,14 @@ public class Users implements java.io.Serializable {
 		return this.roles;
 	}
 
+	
 	public void setRoles(Roles roles) {
 		roles.setUserses(null);
 		this.roles = roles;
+	}
+	
+	public void setRoles(Object roles) {
+		this.roles =  (Roles) roles;
 	}
 
 	@Column(name = "name", nullable = false, length = 100)

@@ -2,8 +2,8 @@ package com.student.ws;
 
 import com.student.tools.MaintenanceMethods;
 @SuppressWarnings("rawtypes")
-public class RoleRestClient extends MaintenanceMethods{
-	public RoleRestClient(){
-		super("role");
+public class RolRestClient extends MaintenanceMethods{
+	public RolRestClient(){
+		super("rol");
 	}
 }

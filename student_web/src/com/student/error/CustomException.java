@@ -39,7 +39,7 @@ public class CustomException extends Throwable  {
 		this.set_messageList(getMessageList(exception));
 	}
 
-	public CustomException(String message,  com.student.error.ErrorCode errorCode,String className, int lineNumber) {
+	public CustomException(String message,  ErrorCode errorCode,String className, int lineNumber) {
 		super(message);
 		this.set_className(className);
 		this.set_code(errorCode.get_code());

@@ -3,9 +3,8 @@
 <table class="table table-striped table-bordered">
 	<tr>
 		<th>Id</th>
-		<th>First name</th>
-		<th>Second name</th>
-		<th>Carne</th>
+		<th>Name</th>
+		<th>Habilitado</th>
 		<th>Created at</th>
 		<th>Updated at</th>
 		<th>Options</th>
@@ -13,9 +12,8 @@
 	<c:forEach var="item" items="${listData}">
 		<tr>
 			<td>${item.id }</td>
-			<td>${item.firstName }</td>
-			<td>${item.lastName }</td>
-			<td>${item.carne}</td>
+			<td>${item.name }</td>
+			<td>${item.isEnabled == 'true' ? 'Si' : 'No'}</td>
 			<td>${item.createdAt }</td>
 			<td>${item.updatedAt }</td>
 			<td>

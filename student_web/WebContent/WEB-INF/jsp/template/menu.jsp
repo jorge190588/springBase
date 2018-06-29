@@ -56,8 +56,8 @@
 	          		<i class="fa fa-user-lock fa-sm"></i> Seguridad
 	        	</a>
 	        	<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	          		<a class="dropdown-item" href="#"><i class="fa fa-user fa-sm"></i> Usuarios</a>
-	          		<a class="dropdown-item" href="#"><i class="fa fa-users fa-sm"></i> Grupos</a>
+	          		<a class="dropdown-item" href="user"><i class="fa fa-user fa-sm"></i> Usuarios</a>
+	          		<a class="dropdown-item" href="rol"><i class="fa fa-users fa-sm"></i> Roles</a>
 	        	</div>
 	      	</li>      
 		</ul>

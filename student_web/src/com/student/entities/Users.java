@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Locale;
+import java.util.Map;
 
 
 /**
@@ -95,6 +96,8 @@ public class Users implements java.io.Serializable {
 		return this.roles;
 	}
 
+	 
+	
 	public void setRoles(Roles roles) {
 		this.roles = roles;
 	}

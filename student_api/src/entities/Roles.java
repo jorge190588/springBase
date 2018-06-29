@@ -1,8 +1,13 @@
 package entities;
 // Generated Jun 26, 2018 5:31:58 PM by Hibernate Tools 5.1.0.Alpha1
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +24,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "roles")
 public class Roles implements java.io.Serializable {
-
+	DateFormat format = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
 	private int id;
 	private String name;
 	private Boolean isEnabled;
@@ -44,6 +49,8 @@ public class Roles implements java.io.Serializable {
 		this.userses = userses;
 	}
 
+	
+	
 	@Id
 
 	@Column(name = "id", unique = true, nullable = false)

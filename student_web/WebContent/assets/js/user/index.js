@@ -5,7 +5,7 @@
 var Module =  function(){
 	var _private = {}, _public = {};
 	
-	_private._moduleName='student',
+	_private._moduleName='user',
 	_private.form_create = new FormModule(),
 	_private.form_update = new FormModule(),
 	_private.form_delete = new FormModule(),
@@ -23,7 +23,8 @@ var Module =  function(){
 		_private.listComponent.setDeleteCallback(_private.deleteRow);
 		
 		_private.navOptions.addOption('create','Crear','fa-plus-square',_private.create);
-
+		
+		_private.form_create.init("create");
 		_private.form_create.saveButton.setClickEvent(_private.saveRow);
 		_private.form_update.init("update");
 		_private.form_update.saveButton.setClickEvent(_private.updateSave);
@@ -31,13 +32,23 @@ var Module =  function(){
 		_private.form_delete.saveButton.setClickEvent(_private.deleteSave);
 	};
 	
-	_private.create=function(){
-		_private.form_create.showModal();	
+	_private.fillDropdown=function(form,callback){
+		_private.apiFront.get('rol/findby',{isEnabled:true},function(response,error){
+			form.roles.fill(response._data,'id','name');
+			callback();
+		});
 	};
+	
+	_private.create=function(){
+		_private.fillDropdown(_private.form_create,function(){
+			_private.form_create.showModal();	
+		})
+	}
 	
 	_private.saveRow=function(){
 		if (_private.form_create.validations.isFormValid()==false) return;
 		var _params = _private.form_create.values.getValues();
+		_params={params:JSON.stringify(_params)}
 		_private.form_create.saveButton.disabled();
 		_private.apiFront.get(_private._moduleName+'/create',_params,function(response,error){
 			if (response){
@@ -54,14 +65,17 @@ var Module =  function(){
 	
 	_private.updateRow=function(_id){
 		_private.apiFront.get(_private._moduleName+'/findby',{id:_id},function(response,error){
-			_private.form_update.values.setValues(response._data[0]);
-			_private.form_update.showModal();
+			_private.fillDropdown(_private.form_update,function(){
+				_private.form_update.values.setValues(response._data[0]);
+				_private.form_update.showModal();	
+			});
 		});
 	};
 	
 	_private.updateSave=function(isValidValuesInForm){
 		if (_private.form_update.validations.isFormValid()==false) return;
 		var _params = _private.form_update.values.getValues();
+		_params={params:JSON.stringify(_params)}
 		_private.form_update.saveButton.disabled();
 		_private.apiFront.get(_private._moduleName+'/update',_params,function(response,error){
 			if (response){

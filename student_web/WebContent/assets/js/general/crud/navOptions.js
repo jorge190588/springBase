@@ -3,55 +3,39 @@
  * 12/06/2018
  */
 
+
 var NavOptions =  function () {
 	var _private = {}, _public = {}; 
 	
+	_private._navElement=null;
+	
 	_public.__construct = function() {
+		_private.setNavElement();
 		return _public;
 	};
 	
-	_public.init=function(optionsClass){
-		window.addEventListener('load',function(){
-			var arrayLength = optionsClass.length;
-			for (var index = 0; index < arrayLength; index++) {
-				_private.addClickEventOption(optionsClass[index],_public.openForm);
-			}
-		});
+	_private.setNavElement=function(){
+		_private._navElement= $("#navOptions").find(".nav")[0]; 
 	}
 	
-	_private.addClickEventOptionToEvent=function(element, openMethod,optionId){
-		if (element!=undefined){
-			element.onclick=function() { openMethod(event,optionId); };
-		}
-	};
-	
-	_private.addClickEventOption=function(optionId,openMethod){
-		var findedElements = $("#navOptions > ul > li[class*='option-"+optionId+"'");
-		if (findedElements.length==0){
-			console.log(optionId,' doent exists');
-			return ;
-		}/*TODO if is false then send to com.student.error logs*/
-		_private.addClickEventOptionToEvent(findedElements[0],openMethod,optionId);
-		
-		setTimeout(function(){ 
-			var checkElement = $("#navOptions > ul > li[class*='option-"+optionId+"'")[0]
-			var isOnlickInElement = _private.checkIfEventWasAdded(checkElement);
-			if (!isOnlickInElement) _private.addClickEventOption(optionId,_private.openMethod);
-		}, 500);
+	_public.addOption=function(id,name,icon,callback){
+		var html='<li class="nav-item option-'+id+'">';
+			html+='<a class="nav-link" href="#"><i class="fa '+icon+' fa-lg"></i> '+name+'</a>';
+			html+='</li>';
 			
+		_private._navElement.insertAdjacentHTML('beforeend',html);
+		if (callback==null) return ;
+		_private.setCallback(id,callback);
 	}
 	
-	_private.checkIfEventWasAdded=function(element){
-		return (element.onclick!=null) ? true : false;
+	_private.setCallback=function(id,callback){
+		var findedElements = $("#navOptions > ul > li[class*='option-"+id+"'");
+		if (findedElements.length==0){
+			console.log(id,' doent exists');
+			return ;
+		}/*TODO if is false then send to logs*/
+		findedElements[0].onclick=callback;
 	}
-	
-	_public.openForm=function(event,optionName){
-		$('#form-'+optionName).modal('show');
-		event.preventDefault()
-	};
 	
 	return _public.__construct.apply(this, arguments);
 };
-
-
- 

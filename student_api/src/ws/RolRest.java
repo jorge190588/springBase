@@ -12,11 +12,11 @@ import error.CustomException;
 import model.*;
 import tools.CrudValidations;
 import tools.RestResponse;
-@Path("role")
+@Path("rol")
 @SuppressWarnings({ "rawtypes"})
-public class RoleRest {
-	private RoleModel model = new RoleModel();
-	CrudValidations crud = new CrudValidations(model,"Role");
+public class RolRest {
+	private RolModel model = new RolModel();
+	CrudValidations crud = new CrudValidations(model,"Rol");
 	
 	//---------------------------------  Start findByCondition functions. ------------------------------------
 	@GET
@@ -38,6 +38,13 @@ public class RoleRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	public RestResponse findByCarne(@PathParam(value="name") String name) throws CustomException{
 		return crud.findByCondition("name='"+name+"'");
+	}
+	
+	@GET
+	@Path("findbyisEnabled/{isEnabled}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public RestResponse findByCarne(@PathParam(value="isEnabled") Boolean isEnabled) throws CustomException{
+		return crud.findByCondition("isEnabled='"+isEnabled+"'");
 	}
 	
 	//---------------------------------  End findByCondition functions. ------------------------------------
