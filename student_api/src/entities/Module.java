@@ -1,5 +1,5 @@
 package entities;
-// Generated Jun 26, 2018 5:31:58 PM by Hibernate Tools 5.1.0.Alpha1
+// Generated Jun 29, 2018 1:45:03 PM by Hibernate Tools 5.1.0.Alpha1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -56,7 +56,7 @@ public class Module implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "name", nullable = false)
+	@Column(name = "name", nullable = false, length = 50)
 	public String getName() {
 		return this.name;
 	}
