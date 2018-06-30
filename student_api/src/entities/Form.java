@@ -1,13 +1,16 @@
 package entities;
-// Generated Jun 26, 2018 5:31:58 PM by Hibernate Tools 5.1.0.Alpha1
+// Generated Jun 30, 2018 7:41:07 AM by Hibernate Tools 5.1.0.Alpha1
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,8 +28,11 @@ public class Form implements java.io.Serializable {
 	private String title;
 	private String url;
 	private int users;
+	private String icon;
+	private Integer orderElement;
 	private Date createdAt;
 	private Date updatedAt;
+	private Set<RolesForm> rolesForms = new HashSet<RolesForm>(0);
 
 	public Form() {
 	}
@@ -40,16 +46,19 @@ public class Form implements java.io.Serializable {
 		this.users = users;
 	}
 
-	public Form(int id, Module module, String name, String title, String url, int users, Date createdAt,
-			Date updatedAt) {
+	public Form(int id, Module module, String name, String title, String url, int users, String icon,
+			Integer orderElement, Date createdAt, Date updatedAt, Set<RolesForm> rolesForms) {
 		this.id = id;
 		this.module = module;
 		this.name = name;
 		this.title = title;
 		this.url = url;
 		this.users = users;
+		this.icon = icon;
+		this.orderElement = orderElement;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
+		this.rolesForms = rolesForms;
 	}
 
 	@Id
@@ -72,10 +81,6 @@ public class Form implements java.io.Serializable {
 	public void setModule(Module module) {
 		module.setForms(null);
 		this.module = module;
-	}
-	
-	public void setModule(Object module) {
-		this.module = (Module) module;
 	}
 
 	@Column(name = "name", nullable = false, length = 100)
@@ -114,6 +119,24 @@ public class Form implements java.io.Serializable {
 		this.users = users;
 	}
 
+	@Column(name = "icon", length = 20)
+	public String getIcon() {
+		return this.icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	@Column(name = "orderElement")
+	public Integer getOrderElement() {
+		return this.orderElement;
+	}
+
+	public void setOrderElement(Integer orderElement) {
+		this.orderElement = orderElement;
+	}
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_at", length = 23)
 	public Date getCreatedAt() {
@@ -132,6 +155,15 @@ public class Form implements java.io.Serializable {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "form")
+	public Set<RolesForm> getRolesForms() {
+		return this.rolesForms;
+	}
+
+	public void setRolesForms(Set<RolesForm> rolesForms) {
+		this.rolesForms = rolesForms;
 	}
 
 }
