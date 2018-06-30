@@ -105,7 +105,7 @@ public class GenericValidations<T> {
 	public void checkIfOneOfAllParamsIsRequiredWithPattern(Object _class) {
 		int errorCounter=0;
 		if (this.entiti==null) return;
-		String listElementCondition="entitiId="+this.entiti.getId()+" and isRequired=1";
+		String listElementCondition="entiti="+this.entiti.getId()+" and isRequired=1";
 		String message="",methodName="",idElement,pattern="";
 		GenericClass genericClass;
 		Boolean matches=false;
@@ -171,7 +171,7 @@ public class GenericValidations<T> {
 			
 			String id = genericClass.getResult().toString();
 			
-			List<Element> listOfUniqueElements= getListElement("entitiId="+entiti.getId()+" and isUnique=1 ");
+			List<Element> listOfUniqueElements= getListElement("entiti="+entiti.getId()+" and isUnique=1 ");
 			for(Element element: listOfUniqueElements){
 				
 				idElement = capitalizeString(element.getIdelement());
@@ -220,7 +220,7 @@ public class GenericValidations<T> {
 		GenericClass genericClass;
 		if (entiti==null) return;
 		try{
-			List<Element> listOfUniqueElements= getListElement("entitiId="+entiti.getId()+" and isUnique=1");
+			List<Element> listOfUniqueElements= getListElement("entiti="+entiti.getId()+" and isUnique=1");
 			for(Element element: listOfUniqueElements){
 				
 				idElement = capitalizeString(element.getIdelement());

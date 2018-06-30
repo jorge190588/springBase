@@ -19,7 +19,7 @@
         </property>
         <set name="elements" table="element" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="elementTypeId" not-null="true" />
+                <column name="elementType" not-null="true" />
             </key>
             <one-to-many class="entities.Element" />
         </set>

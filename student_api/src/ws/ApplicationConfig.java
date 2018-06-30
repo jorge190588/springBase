@@ -23,6 +23,8 @@ public class ApplicationConfig extends Application {
 			resources.add(ws.FormRest.class);
 			resources.add(ws.RolRest.class);
 			resources.add(ws.ModuleRest.class);
+			resources.add(ws.ElementTypeRest.class);
+			
 		}catch(Exception exception){
 			throw new ExceptionInInitializerError(exception); 
 		}			

@@ -7,17 +7,17 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import entities.Element;
+import entities.ElementType;
 import error.CustomException;
-import model.*;
+import model.ElementTypeModel;
 import tools.CrudValidations;
 import tools.RestResponse;
 
-@Path("element")
+@Path("elementType")
 @SuppressWarnings({ "rawtypes"})
-public class ElementRest {
-	private ElementModel model = new ElementModel();
-	CrudValidations crud = new CrudValidations(model,"Element");
+public class ElementTypeRest {
+	private ElementTypeModel model = new ElementTypeModel();
+	CrudValidations crud = new CrudValidations(model,"ElementType");
 	
 	//---------------------------------  Start findByCondition functions. ------------------------------------
 	@GET
@@ -35,10 +35,10 @@ public class ElementRest {
 	}
 	
 	@GET
-	@Path("findbyentiti/{entiti}")
+	@Path("findbyname/{name}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public RestResponse findByentity(@PathParam(value="entiti") int entiti) throws CustomException{
-		return crud.findByCondition("entiti='"+entiti+"' order by orderElement");
+	public RestResponse findByName(@PathParam(value="name") String name) throws CustomException{
+		return crud.findByCondition("name='"+name+"'");
 	}
 	
 	//---------------------------------  End findByCondition functions. ------------------------------------
@@ -50,10 +50,11 @@ public class ElementRest {
 		return crud.page(page);
 	}
 	
+	
 	@POST
 	@Path("create")
 	@Produces(MediaType.APPLICATION_JSON)
-	public RestResponse create(Element newElement)  throws CustomException 
+	public RestResponse create(ElementType newElement)  throws CustomException 
 	{
 		return crud.create(newElement);
 	}
@@ -61,7 +62,7 @@ public class ElementRest {
 	@POST
 	@Path("update")
 	@Produces(MediaType.APPLICATION_JSON)
-	public RestResponse update(Element updateElement) throws CustomException{
+	public RestResponse update(ElementType updateElement) throws CustomException{
 		 return crud.update(updateElement);
 	}
 	
@@ -71,4 +72,6 @@ public class ElementRest {
 	public RestResponse delete(@PathParam(value="id") String id) throws CustomException{
 		return crud.delete(id);
 	}
+
+
 }

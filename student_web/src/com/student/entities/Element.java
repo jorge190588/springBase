@@ -2,6 +2,7 @@ package com.student.entities;
 // Generated Jun 20, 2018 1:22:39 PM by Hibernate Tools 5.1.0.Alpha1
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -32,6 +33,7 @@ public class Element implements java.io.Serializable {
 	public Element() {
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Element(Object object){
 		LinkedHashMap objectMap = (LinkedHashMap)object;
 		this.id = (int) objectMap.get("id");
@@ -40,11 +42,14 @@ public class Element implements java.io.Serializable {
 		}catch(Exception exception){
 			System.out.println("Error to convert elementType");
 		}
+	 
 		try{
-			this.entiti = (Entiti) objectMap.get("entiti");
+			this.entiti = new Entiti(objectMap.get("entiti"));
 		}catch(Exception exception){
 			System.out.println("Error to convert entiti");
+			 
 		}
+		
 		this.idelement = (String) objectMap.get("idelement");
 		this.label = (String) objectMap.get("label");
 		this.orderElement = (int) objectMap.get("orderElement");
@@ -57,15 +62,13 @@ public class Element implements java.io.Serializable {
 		this.setIsUpdate((Boolean) objectMap.get("isUpdate"));
 		this.setIsDelete((Boolean) objectMap.get("isDelete"));
 		
-		if (objectMap.get("createdAt")==null){
-			this.createdAt=null;	
-		}else{
+		if (objectMap.get("createdAt")==null) this.createdAt=null;	
+		else{
 			try{
 				this.createdAt= (Date) format.parse(objectMap.get("createdAt").toString());	
 			}catch(Exception exception){
-				System.out.println("Error to convert createdAt");
+				System.out.println("Error to convert createdAt in element class");
 			}
-			
 		}
 		
 		if (objectMap.get("updatedAt")==null){
@@ -121,12 +124,26 @@ public class Element implements java.io.Serializable {
 		return this.elementType;
 	}
 
+	public void setElementType(Object elementType) {
+	
+		try{
+			ElementType newElementType =new ElementType(elementType);
+			newElementType.setElements(null);
+			this.elementType = new ElementType(newElementType);
+		}catch(Exception exception){
+			System.out.println("error to convert elementType in element class "+exception.getMessage());
+		}
+	}
+	
 	public void setElementType(ElementType elementType) {
 		elementType.setElements(null);
-		this.elementType = elementType;
+		try{
+			this.elementType = elementType;	
+		}catch(Exception exception){
+			System.out.println("error to convert elementType in element class "+exception.getMessage());
+		}
 	}
-
- 
+	
 	public Entiti getEntiti() {
 		return this.entiti;
 	}
@@ -134,7 +151,16 @@ public class Element implements java.io.Serializable {
 	public void setEntiti(Entiti entiti) {
 		this.entiti = entiti;
 	}
-
+	
+	public void setEntiti(Object entiti)   {
+		try {
+			Entiti newEntiti=  new Entiti(entiti); 
+			newEntiti.setElements(null);
+			this.entiti =newEntiti;
+		} catch (ParseException exception) {
+			System.out.println("error to convert entiti in element class "+exception.getMessage());
+		}
+	}
 	 
 	public String getIdelement() {
 		return this.idelement;
@@ -143,7 +169,6 @@ public class Element implements java.io.Serializable {
 	public void setIdelement(String idelement) {
 		this.idelement = idelement;
 	}
-
 	 
 	public String getLabel() {
 		return this.label;
@@ -152,7 +177,6 @@ public class Element implements java.io.Serializable {
 	public void setLabel(String label) {
 		this.label = label;
 	}
-
 	 
 	public Boolean getIsRequired() {
 		return this.isRequired;
@@ -161,7 +185,6 @@ public class Element implements java.io.Serializable {
 	public void setIsRequired(Boolean isRequired) {
 		this.isRequired = isRequired;
 	}
-
 	 
 	public Boolean getIsUnique() {
 		return this.isUnique;
@@ -170,7 +193,6 @@ public class Element implements java.io.Serializable {
 	public void setIsUnique(Boolean isUnique) {
 		this.isUnique = isUnique;
 	}
-
 	 
 	public String getPattern() {
 		return this.pattern;
@@ -179,7 +201,6 @@ public class Element implements java.io.Serializable {
 	public void setPattern(String pattern) {
 		this.pattern = pattern;
 	}
-
 	 
 	public String getPatternMessage() {
 		return this.patternMessage;
@@ -197,7 +218,6 @@ public class Element implements java.io.Serializable {
 	public void setOrderElement(int orderElement) {
 		this.orderElement = orderElement;
 	}
-
 	 
 	public Date getCreatedAt() {
 		return this.createdAt;

@@ -85,8 +85,14 @@ public class Element implements java.io.Serializable {
 	}
 
 	public void setElementType(ElementType elementType) {
-		 elementType.setElements(null);
+		elementType.setElements(null);
 		this.elementType = elementType;
+	}
+	
+	public void setElementType(Object elementType) {
+		ElementType _elementType =(ElementType) elementType;
+		_elementType.setElements(null);
+		this.elementType = _elementType;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -98,6 +104,12 @@ public class Element implements java.io.Serializable {
 	public void setEntiti(Entiti entiti) {
 		entiti.setElements(null);
 		this.entiti = entiti;
+	}
+	
+	public void setEntiti(Object entiti) {
+		Entiti _entiti =(Entiti) entiti;
+		_entiti.setElements(null);
+		this.entiti = _entiti;
 	}
 
 	@Column(name = "idelement", nullable = false, length = 50)
