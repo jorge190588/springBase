@@ -35,10 +35,9 @@ public class Module implements java.io.Serializable {
 	@SuppressWarnings("rawtypes")
 	public Module(Object object){
 		LinkedHashMap objectMap = (LinkedHashMap)object;
-		this.id = (int) objectMap.get("id");
+		int _id = Integer.parseInt(objectMap.get("id").toString().trim());
+		this.id =_id;
 		this.name = (String) objectMap.get("name");
-		
-		
 		if (objectMap.get("createdAt")==null){
 			this.createdAt=null;	
 		}else{
