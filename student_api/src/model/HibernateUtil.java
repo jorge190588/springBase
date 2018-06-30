@@ -32,8 +32,6 @@ public class HibernateUtil {
     		 .build();
     		 
     		 Metadata metadata = new MetadataSources( standardRegistry )
-    		 .addAnnotatedClass(Student.class )
-    		 .addAnnotatedClass(Users.class ) 
     		 // You can add more entity classes here like above
     		 .addResource( "entities/Student.hbm.xml" )
     		 .addResource( "entities/Teacher.hbm.xml" )
@@ -44,6 +42,7 @@ public class HibernateUtil {
     		 .addResource( "entities/Entiti.hbm.xml" )
     		 .addResource( "entities/Users.hbm.xml" )
     		 .addResource( "entities/Form.hbm.xml" )
+    		 .addResource( "entities/RolesForm.hbm.xml" ) 
     		 .addResource( "entities/Roles.hbm.xml" )
     		 .addResource( "entities/Module.hbm.xml" )
     		 .getMetadataBuilder()
