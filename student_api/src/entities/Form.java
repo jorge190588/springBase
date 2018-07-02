@@ -138,7 +138,7 @@ public class Form implements java.io.Serializable {
 		this.users = users;
 	}
 
-	@Column(name = "icon", length = 20)
+	@Column(name = "icon", length = 50)
 	public String getIcon() {
 		return this.icon;
 	}

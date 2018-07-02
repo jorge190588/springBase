@@ -118,9 +118,23 @@ public class Element implements java.io.Serializable {
 	}
 	
 	public void setElementType(Object elementType) {
-		ElementType _elementType =(ElementType) elementType;
-		_elementType.setElements(null);
-		this.elementType = _elementType;
+		try{
+			if (entiti instanceof Entiti){
+				ElementType _elementType =(ElementType) elementType;
+				_elementType.setElements(null);
+				this.elementType = _elementType;
+			}else{
+				ObjectMapper objectMapper = new ObjectMapper();
+				String jsonInString = objectMapper.writeValueAsString(elementType);
+				ElementType newElement = objectMapper.readValue(jsonInString, ElementType.class);
+				newElement.setElements(null);
+				this.elementType = newElement;	
+			}	
+		}catch(Exception exception){
+			System.out.println("error to set elementTyype in element, api project "+exception.getMessage());
+		}
+		
+		
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

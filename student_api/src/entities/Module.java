@@ -26,7 +26,7 @@ public class Module implements java.io.Serializable {
 	private Date createdAt;
 	private Date updatedAt;
 	private String icon;
-	private Integer orderElement;
+	private int orderElement;
 	private Set<Form> forms = new HashSet<Form>(0);
 
 	public Module() {
@@ -38,7 +38,7 @@ public class Module implements java.io.Serializable {
 		this.users = users;
 	}
 
-	public Module(int id, String name, int users, Date createdAt, Date updatedAt, String icon, Integer orderElement,
+	public Module(int id, String name, int users, Date createdAt, Date updatedAt, String icon, int orderElement,
 			Set<Form> forms) {
 		this.id = id;
 		this.name = name;
@@ -99,7 +99,7 @@ public class Module implements java.io.Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	@Column(name = "icon", length = 20)
+	@Column(name = "icon", length = 50)
 	public String getIcon() {
 		return this.icon;
 	}
@@ -109,11 +109,11 @@ public class Module implements java.io.Serializable {
 	}
 
 	@Column(name = "orderElement")
-	public Integer getOrderElement() {
+	public int getOrderElement() {
 		return this.orderElement;
 	}
 
-	public void setOrderElement(Integer orderElement) {
+	public void setOrderElement(int orderElement) {
 		this.orderElement = orderElement;
 	}
 

@@ -22,7 +22,7 @@
 			<td>${item.orderElement}</td>
 			<td><i class="${item.icon}"></i> ${item.icon}
 			</td>
-			<td>${item.module.name }</td>
+			<td><i class="${item.module.icon}"></i> ${item.module.name }</td>
 			<td>${item.createdAt }</td>
 			<td>${item.updatedAt }</td>
 			<td>

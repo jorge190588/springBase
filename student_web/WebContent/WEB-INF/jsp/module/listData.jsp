@@ -4,6 +4,8 @@
 	<tr>
 		<th>Id</th>
 		<th>Name</th>
+		<th>Orden</th>
+		<th>Icono</th>
 		<th>Created at</th>
 		<th>Updated at</th>
 		<th>Options</th>
@@ -12,6 +14,9 @@
 		<tr>
 			<td>${item.id }</td>
 			<td>${item.name }</td>
+			<td>${item.orderElement}</td>
+			<td><i class="${item.icon}"></i> ${item.icon}
+			</td>
 			<td>${item.createdAt }</td>
 			<td>${item.updatedAt }</td>
 			<td>

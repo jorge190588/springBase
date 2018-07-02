@@ -21,9 +21,9 @@
             <column name="updated_at" length="23" />
         </property>
         <property name="icon" type="string">
-            <column name="icon" length="20" />
+            <column name="icon" length="50" />
         </property>
-        <property name="orderElement" type="java.lang.Integer">
+        <property name="orderElement" type="int">
             <column name="orderElement" />
         </property>
         <set name="forms" table="form" inverse="true" lazy="true" fetch="select">

@@ -24,7 +24,7 @@
             <column name="users" not-null="true" />
         </property>
         <property name="icon" type="string">
-            <column name="icon" length="20" />
+            <column name="icon" length="50" />
         </property>
         <property name="orderElement" type="int">
             <column name="orderElement" />
