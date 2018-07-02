@@ -1,5 +1,5 @@
 package entities;
-// Generated Jun 29, 2018 1:45:03 PM by Hibernate Tools 5.1.0.Alpha1
+// Generated Jul 1, 2018 8:12:33 PM by Hibernate Tools 5.1.0.Alpha1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -25,6 +25,8 @@ public class Module implements java.io.Serializable {
 	private int users;
 	private Date createdAt;
 	private Date updatedAt;
+	private String icon;
+	private Integer orderElement;
 	private Set<Form> forms = new HashSet<Form>(0);
 
 	public Module() {
@@ -36,12 +38,15 @@ public class Module implements java.io.Serializable {
 		this.users = users;
 	}
 
-	public Module(int id, String name, int users, Date createdAt, Date updatedAt, Set<Form> forms) {
+	public Module(int id, String name, int users, Date createdAt, Date updatedAt, String icon, Integer orderElement,
+			Set<Form> forms) {
 		this.id = id;
 		this.name = name;
 		this.users = users;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
+		this.icon = icon;
+		this.orderElement = orderElement;
 		this.forms = forms;
 	}
 
@@ -92,6 +97,24 @@ public class Module implements java.io.Serializable {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	@Column(name = "icon", length = 20)
+	public String getIcon() {
+		return this.icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	@Column(name = "orderElement")
+	public Integer getOrderElement() {
+		return this.orderElement;
+	}
+
+	public void setOrderElement(Integer orderElement) {
+		this.orderElement = orderElement;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "module")

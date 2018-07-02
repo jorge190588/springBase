@@ -20,6 +20,8 @@ public class Module implements java.io.Serializable {
 	private int users;
 	private Date createdAt;
 	private Date updatedAt;
+	private String icon;
+	private Integer orderElement;
 	private Set<Form> forms = new HashSet<Form>(0);
 
 	public Module() {
@@ -107,6 +109,23 @@ public class Module implements java.io.Serializable {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+	
+	public String getIcon() {
+		return this.icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+
+	public Integer getOrderElement() {
+		return this.orderElement;
+	}
+
+	public void setOrderElement(Integer orderElement) {
+		this.orderElement = orderElement;
 	}
 
 	public Set<Form> getForms() {
