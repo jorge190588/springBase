@@ -26,7 +26,7 @@
         <property name="icon" type="string">
             <column name="icon" length="20" />
         </property>
-        <property name="orderElement" type="java.lang.Integer">
+        <property name="orderElement" type="int">
             <column name="orderElement" />
         </property>
         <property name="createdAt" type="timestamp">

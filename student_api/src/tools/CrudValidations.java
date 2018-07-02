@@ -155,11 +155,14 @@ public class CrudValidations {
 			if (genericClass.getIsError()==true) throw new Exception(genericClass.getErrorMessage());	
 
 			response.set_data(genericClass.getResult());
-		}catch(Throwable exception){
-			CustomException ex=  new CustomException(exception.getCause().getMessage(),exception,error.ErrorCode.REST_UPDATE,this.getClass().getSimpleName());
+		}catch(Exception exception){
+			CustomException ex=  new CustomException(exception.getMessage(),exception,error.ErrorCode.REST_UPDATE,this.getClass().getSimpleName());
 			ErrorFormat _errorFormat = new ErrorFormat(ex);
 			response.set_error(_errorFormat.get_errorResponse());
-		} 
+		} catch (CustomException exception) {
+			ErrorFormat _errorFormat = new ErrorFormat(exception);
+			response.set_error(_errorFormat.get_errorResponse());
+		}
 		return response;
 	}
 	

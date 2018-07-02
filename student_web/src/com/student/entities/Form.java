@@ -95,10 +95,13 @@ public class Form implements java.io.Serializable {
 		return this.module;
 	}
 
+	
+	
 	public void setModule(Module module) {
 		module.setForms(null);
 		this.module = module;
 	}
+	
 
 	public String getName() {
 		return this.name;

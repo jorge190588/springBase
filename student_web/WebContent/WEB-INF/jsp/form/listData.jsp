@@ -20,7 +20,8 @@
 			<td>${item.title }</td>
 			<td>${item.url}</td>
 			<td>${item.orderElement}</td>
-			<td>${item.icon}</td>
+			<td><i class="${item.icon}"></i> ${item.icon}
+			</td>
 			<td>${item.module.name }</td>
 			<td>${item.createdAt }</td>
 			<td>${item.updatedAt }</td>
